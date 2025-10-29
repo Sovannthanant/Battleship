@@ -81,23 +81,35 @@ grille_tir_j2 = [
 #2. Créer les dimensions des cinq différents navires:
 #   -Un Tourpilleur, dimension de 1x2 espaces.
 tourpilleur_axe_x = ["1","1"]
+torpilleur_placer = False
 #   -Deux Croiseur, dimensions de 1x3 espaces.
 croiseur1_axe_x = ["1","1","1"]
 croiseur2_axe_x = ["1","1","1"]
+croiseur1_placer = False
+croiseur2_placer = False
 #   -Un Cuirassé, dimension de 1x4 espaces.
 cuirasse_axe_x = ["1","1","1","1"]
+cuirasse_placer = False
 #   -Un Porte-Avion, dimension de 1x5 cases.
 porte_avion_axe_x = ["1","1","1","1","1"]
+porte_avion_placer = False
+bateau_placer = torpilleur_placer and croiseur1_placer and croiseur2_placer and cuirasse_placer and porte_avion_placer
 
-#3. Faire Demander aux deux joueurs de placer les bateau dans la grille:
+#3. Faire Demander aux deux joueurs de placer les bateau dans la grille :
+def placer_test():
+    while bateau_placer == False:
+        for ligne in grille_bateau_j1:
+            ligne.append(tourpilleur_axe_x)
+            print(ligne)
+        while torpilleur_placer == False:
+            print("A")
+        break
+
 #   -Offrir le choix au joueur s'il veut tourner la pièce dans l'angle des x ou y.
+placer_test()
 for ligne in grille_bateau_j1:
     print(*ligne)
-print("Veuillez placer le tourpilleur dans votre grille (pièce de deux cases).")
-
-for ligne in grille_bateau_j1:
-    ligne.append(tourpilleur_axe_x)
-    print(*ligne)
+print("Joueur 1, placez le tourpilleur dans\nvotre grille (la pièce de 1x2).")
 
 print("")
 for ligne in grille_tir_j1:
