@@ -97,8 +97,11 @@ bateaux_placer = tourpilleur_placer and croiseur1_placer and croiseur2_placer an
 
 #3. Faire Demander aux deux joueurs de placer les bateau dans la grille:
 #   -Offrir le choix au joueur s'il veut tourner la pièce dans l'angle des x ou y.
+tir = 1
+ligne = 6
+colonne = 6
+grille_bateau_j1[ligne][colonne] = tir
 
-print("Veuillez placer le tourpilleur dans votre grille (pièce de deux cases).")
 
 print("")
 for ligne in grille_bateau_j1:
@@ -106,3 +109,15 @@ for ligne in grille_bateau_j1:
 
 for ligne in grille_tir_j1:
     print(*ligne)
+
+#print("Joueur 1, placer le tourpilleur dans\nvotre grille (pièce de deux cases).")
+#print("Joueur 1, placer le croisseur_1 dans\nvotre grille (pièce de trois cases).")
+#print("Joueur 1, placer le croisseur_2 dans\nvotre grille (pièce de trois cases).")
+#print("Joueur 1, placer le cuirasse dans\nvotre grille (pièce de quatre cases).")
+#print("Joueur 1, placer le porte_avion dans\nvotre grille (pièce de cinq cases).")
+
+#print("Joueur 2, placer le tourpilleur dans\nvotre grille (pièce de deux cases).")
+#print("Joueur 2, placer le croisseur_1 dans\nvotre grille (pièce de trois cases).")
+#print("Joueur 2, placer le croisseur_2 dans\nvotre grille (pièce de trois cases).")
+#print("Joueur 2, placer le cuirasse dans\nvotre grille (pièce de quatre cases).")
+#print("Joueur 2, placer le porte_avion dans\nvotre grille (pièce de cinq cases).")
