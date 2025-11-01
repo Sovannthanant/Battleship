@@ -108,7 +108,8 @@ def afficher_grille_tirs_j2():      #grille_tir_j2 : list
 
 #--------------------2. Créer les dimensions des cinq différents navires:--------------------
 #   -Un Tourpilleur, dimension de 1x2 cases.
-tourpilleur_axe_x = ["1","1"]
+liste_tourpilleur = ["II","II"]
+tourpilleur_axe_x = " ".join(map(str,liste_tourpilleur))
 tourpilleur_placer = False
 
 #   -Deux Croiseurs, dimensions de 1x3 cases.
@@ -135,16 +136,18 @@ bateaux_placer = tourpilleur_placer and croiseur1_placer and croiseur2_placer an
 
 def placement_initial_j1():
     """Fonction qui permet qui j1 de choisir où placer ses bateaux la grille."""
-    placement_initial = "II"
+    placement_initial = "--"
     ligne = 5
     colonne = 5
-    grille_bateaux_j1[colonne][ligne] = placement_initial
+    grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+    ligne2 = 2
+    colonne2 = 2
+    grille_bateaux_j1[colonne2][ligne2] = tourpilleur_axe_x
     afficher_grille_bateaux_j1()
-    #...
     return grille_bateaux_j1
 
 
-afficher_grille_bateaux_j1()
+placement_initial_j1()
 afficher_grille_tir_j1()
 
 #LIEN INTERESSANT:
