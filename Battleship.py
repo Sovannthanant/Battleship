@@ -132,7 +132,7 @@ bateaux_placer = tourpilleur_placer and croiseur1_placer and croiseur2_placer an
 #--------------------3. Faire Demander aux deux joueurs de placer les bateau dans la grille:--------------------
 
 #Pour placer les bateaux j'ai pensé que le bateau s'affichera au centre de la grille et le joueur pourra appuyer
-#W,A,S,D pour le bouger R pour le tourner et E pour placer.
+#W,A,S,D pour le bouger R pour le tourner et E pour placer, quand le bateau est placer, le prochain est affiché.
 
 def placement_initial_j1():
     """Fonction qui permet qui j1 de choisir où placer ses bateaux la grille."""
@@ -140,15 +140,31 @@ def placement_initial_j1():
     ligne = 5
     colonne = 5
     grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
-    ligne2 = 2
-    colonne2 = 2
-    grille_bateaux_j1[colonne2][ligne2] = tourpilleur_axe_x
     afficher_grille_bateaux_j1()
+    while True:
+        reponse = str.lower(input("Appuyer W,A,S,D pour déplacer et E pour placer:"))
+        if reponse == "w":
+            colonne -= 1
+            grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+            afficher_grille_bateaux_j1()
+        if reponse == "s":
+            colonne -= 1
+            grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+            afficher_grille_bateaux_j1()
+        if reponse == "a":
+            ligne -= 1
+            grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+            afficher_grille_bateaux_j1()
+        if reponse == "d":
+            ligne += 1
+            grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+            afficher_grille_bateaux_j1()
+        if reponse == "r":
+            break
     return grille_bateaux_j1
 
 
 placement_initial_j1()
-afficher_grille_tir_j1()
 
 #LIEN INTERESSANT:
 #https://www.geeksforgeeks.org/python/python-using-2d-arrays-lists-the-right-way/
