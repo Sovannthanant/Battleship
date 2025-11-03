@@ -75,14 +75,18 @@ grille_tir_j2 = [
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10, string dans une ligne.
 ]
 
 def afficher_grille_bateaux_j1():    #grille_bateau_j1 : list
     """Fonction qui permet d'afficher les bateaux du joueur 1."""
     print("I=====I BATEAUX DU JOUEUR 1 I=====I")
     for ligne in grille_bateaux_j1:
-        print(*ligne)
+        if len(ligne) > 11:
+            ligne.pop()
+            print(*ligne)
+        else:
+            print(*ligne)
     print("")
 
 def afficher_grille_tir_j1():       #grille_tir_j1 : list
@@ -135,15 +139,12 @@ bateaux_placer = tourpilleur_placer and croiseur1_placer and croiseur2_placer an
 
 #--------------------3. Faire Demander aux deux joueurs de placer les bateau dans la grille:--------------------
 
-#Pour placer les bateaux j'ai pensé que le bateau s'affichera au centre de la grille et le joueur pourra appuyer
-#W,A,S,D pour le bouger R pour le tourner et E pour placer, quand le bateau est placer, le prochain est affiché
-#pour son placement.
-
 def placement_initial():
-    """Fonction qui permet qui j1 de choisir où placer ses bateaux la grille."""
+    """Fonction qui permet de choisir où placer ses bateaux la grille en utilisant W,A,S,D pour se déplacer, R
+    pour faire une rotation et E pour placer le bateau, une fois placé, le prochain bateau apparait pour son
+    placement. Quand les bateaux sont tous placer, c'est à l'autre joueur de placer ensuite la partie commence."""
     ligne = 5
     colonne = 5
-    afficher_grille_bateaux_j1()
     grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
     afficher_grille_bateaux_j1()
     while True:
@@ -175,7 +176,7 @@ def placement_initial():
             placement_initial()
     return grille_bateaux_j1
 
-
+afficher_grille_bateaux_j1()
 placement_initial()
 
 #LIEN INTERESSANT:
