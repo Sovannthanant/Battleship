@@ -35,7 +35,7 @@ grille_bateaux_j1 = [
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une ligne(list).
 ]
 grille_tir_j1 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],
@@ -48,9 +48,9 @@ grille_tir_j1 = [
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une ligne(list).
 ]
-#   -Grille des bateaux du deuxìème joueur et grille de tir.
+#   -Grille des bateaux du deuxième joueur et grille de tir.
 grille_bateaux_j2 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],
     ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -62,7 +62,7 @@ grille_bateaux_j2 = [
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une ligne(list).
 ]
 grille_tir_j2 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],
@@ -75,7 +75,7 @@ grille_tir_j2 = [
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10, string dans une ligne.
+    ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une ligne(list).
 ]
 
 def afficher_grille_bateaux_j1():    #grille_bateau_j1 : list
@@ -143,9 +143,11 @@ def placement_initial():
     """Fonction qui permet de choisir où placer ses bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau, une fois placé, le prochain bateau apparait pour son
     placement. Quand les bateaux sont tous placer, c'est à l'autre joueur de placer ensuite la partie commence."""
-    ligne = 5
+    ligne =  5
     colonne = 5
-    grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+    grille_bateaux_j1[ligne][colonne] = liste_tourpilleur[0]               #["II","II"]
+    colonne2 = 6
+    grille_bateaux_j1[ligne][colonne2] = liste_tourpilleur[1]
     afficher_grille_bateaux_j1()
     while True:
         try:
@@ -181,16 +183,3 @@ placement_initial()
 
 #LIEN INTERESSANT:
 #https://www.geeksforgeeks.org/python/python-using-2d-arrays-lists-the-right-way/
-
-#Des messages print utiliser plus tard.
-#print("Joueur 1, placer le tourpilleur dans\nvotre grille (pièce de deux cases).")
-#print("Joueur 1, placer le croisseur_1 dans\nvotre grille (pièce de trois cases).")
-#print("Joueur 1, placer le croisseur_2 dans\nvotre grille (pièce de trois cases).")
-#print("Joueur 1, placer le cuirasse dans\nvotre grille (pièce de quatre cases).")
-#print("Joueur 1, placer le porte_avion dans\nvotre grille (pièce de cinq cases).")
-
-#print("Joueur 2, placer le tourpilleur dans\nvotre grille (pièce de deux cases).")
-#print("Joueur 2, placer le croisseur_1 dans\nvotre grille (pièce de trois cases).")
-#print("Joueur 2, placer le croisseur_2 dans\nvotre grille (pièce de trois cases).")
-#print("Joueur 2, placer le cuirasse dans\nvotre grille (pièce de quatre cases).")
-#print("Joueur 2, placer le porte_avion dans\nvotre grille (pièce de cinq cases).")
