@@ -82,11 +82,7 @@ def afficher_grille_bateaux_j1():    #grille_bateau_j1 : list
     """Fonction qui permet d'afficher les bateaux du joueur 1."""
     print("I=====I BATEAUX DU JOUEUR 1 I=====I")
     for ligne in grille_bateaux_j1:
-        if len(ligne) > 11:
-            ligne.pop()
-            print(*ligne)
-        else:
-            print(*ligne)
+        print(*ligne)
     print("")
 
 def afficher_grille_tir_j1():       #grille_tir_j1 : list
@@ -112,26 +108,21 @@ def afficher_grille_tirs_j2():      #grille_tir_j2 : list
 
 #--------------------2. Créer les dimensions des cinq différents navires:--------------------
 #   -Un Tourpilleur, dimension de 1x2 cases.
-liste_tourpilleur = ["II","II"]
-cases_tourpilleur = 2
-tourpilleur_axe_x = " ".join(map(str,liste_tourpilleur))
+tourpilleur_axe_x = ["II","II"]
 tourpilleur_placer = False
 
 #   -Deux Croiseurs, dimensions de 1x3 cases.
 croiseur1_axe_x = ["1","1","1"]
 croiseur2_axe_x = ["1","1","1"]
-cases_croiseur = 3
 croiseur1_placer = False
 croiseur2_placer = False
 
 #   -Un Cuirassé, dimension de 1x4 cases.
 cuirasse_axe_x = ["1","1","1","1"],
-cases_cuirasse = 4
 cuirasse_placer = False
 
 #   -Un Porte-Avion, dimension de 1x5 cases.
 porte_avion_axe_x = ["1","1","1","1","1"]
-cases_porte_avion = 5
 porte_avion_placer = False
 
 #Lors que cette variable est activé, le placement des bateaux s'arret.
@@ -145,32 +136,39 @@ def placement_initial():
     placement. Quand les bateaux sont tous placer, c'est à l'autre joueur de placer ensuite la partie commence."""
     ligne =  5
     colonne = 5
-    grille_bateaux_j1[ligne][colonne] = liste_tourpilleur[0]               #["II","II"]
-    colonne2 = 6
-    grille_bateaux_j1[ligne][colonne2] = liste_tourpilleur[1]
+    grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+    grille_bateaux_j1[ligne][colonne+1] = tourpilleur_axe_x[1]
     afficher_grille_bateaux_j1()
     while True:
         try:
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer:"))
             if reponse == "W":
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x.replace("II", "~~")
-                colonne -= 1
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                ligne -= 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne+1] = tourpilleur_axe_x[1]
                 afficher_grille_bateaux_j1()
             elif reponse == "S":
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x.replace("II", "~~")
-                colonne += 1
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                ligne += 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
                 afficher_grille_bateaux_j1()
             elif reponse == "A":
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x.replace("II", "~~")
-                ligne -= 1
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                colonne -= 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
                 afficher_grille_bateaux_j1()
             elif reponse == "D":
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x.replace("II", "~~")
-                ligne += 1
-                grille_bateaux_j1[colonne][ligne] = tourpilleur_axe_x
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                colonne += 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
                 afficher_grille_bateaux_j1()
             elif reponse == "E":
                 break
