@@ -143,6 +143,9 @@ def placement_initial():
         try:
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer:"))
             if reponse == "W":
+                if tourpilleur_axe_x < grille_bateaux_j1[1]:
+                    print("Hors de la grille")
+                    return False
                 grille_bateaux_j1[ligne][colonne] = "~~"
                 grille_bateaux_j1[ligne][colonne + 1] = "~~"
                 ligne -= 1
@@ -173,6 +176,7 @@ def placement_initial():
             elif reponse == "E":
                 break
         except IndexError:
+            grille_bateaux_j1[ligne][colonne] = "~~"
             placement_initial()
     return grille_bateaux_j1
 
