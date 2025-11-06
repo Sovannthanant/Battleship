@@ -142,42 +142,58 @@ def placement_initial():
     while True:
         reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer:"))
         if reponse == "W":
-            if tourpilleur_axe_x == grille_bateaux_j1[1]:
+            if ligne == 1:
                 print("Hors de la grille")
-                return False
-            grille_bateaux_j1[ligne][colonne] = "~~"
-            grille_bateaux_j1[ligne][colonne + 1] = "~~"
-            ligne -= 1
-            grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
-            grille_bateaux_j1[ligne][colonne+1] = tourpilleur_axe_x[1]
-            afficher_grille_bateaux_j1()
+                afficher_grille_bateaux_j1()
+            elif ligne > 1:
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                ligne -= 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne+1] = tourpilleur_axe_x[1]
+                afficher_grille_bateaux_j1()
         elif reponse == "S":
-            grille_bateaux_j1[ligne][colonne] = "~~"
-            grille_bateaux_j1[ligne][colonne + 1] = "~~"
-            ligne += 1
-            grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
-            grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
-            afficher_grille_bateaux_j1()
+            if ligne == 10:
+                print("Hors de la grille")
+                afficher_grille_bateaux_j1()
+            elif ligne < 10:
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                ligne += 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
+                afficher_grille_bateaux_j1()
         elif reponse == "A":
-            grille_bateaux_j1[ligne][colonne] = "~~"
-            grille_bateaux_j1[ligne][colonne + 1] = "~~"
-            colonne -= 1
-            grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
-            grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
-            afficher_grille_bateaux_j1()
+            if colonne == 1:
+                print("Hors de la grille")
+                afficher_grille_bateaux_j1()
+            else:
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                colonne -= 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
+                afficher_grille_bateaux_j1()
         elif reponse == "D":
-            grille_bateaux_j1[ligne][colonne] = "~~"
-            grille_bateaux_j1[ligne][colonne + 1] = "~~"
-            colonne += 1
-            grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
-            grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
-            afficher_grille_bateaux_j1()
+            if colonne == 10 -1:
+                print("Hors de la grille")
+                afficher_grille_bateaux_j1()
+            else:
+                grille_bateaux_j1[ligne][colonne] = "~~"
+                grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                colonne += 1
+                grille_bateaux_j1[ligne][colonne] = tourpilleur_axe_x[0]
+                grille_bateaux_j1[ligne][colonne + 1] = tourpilleur_axe_x[1]
+                afficher_grille_bateaux_j1()
         elif reponse == "E":
             break
+        elif IndexError:
+            return False
     return grille_bateaux_j1
 
-afficher_grille_bateaux_j1()
 placement_initial()
-print(grille_bateaux_j1[1])
+input("Appuyer n'importe qu'elle touche pour afficher la grille")
+afficher_grille_bateaux_j1()
+
 #LIEN INTERESSANT:
 #https://www.geeksforgeeks.org/python/python-using-2d-arrays-lists-the-right-way/
