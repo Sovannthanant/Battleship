@@ -148,13 +148,20 @@ cases_porte_avion = 4
 porte_avion_placer = False
 
 #Dictionnaire des ordres de placement des bateaux.
-ordre_placement = [ #COMPTEUR
+dictionnaire_placement = [
     {"Numero": 1, "Bateau": liste_torpilleur, "Cases": cases_torpilleur},
     {"Numero": 2, "Bateau": liste_croiseur1, "Cases": cases_croiseur},
     {"Numero": 3, "Bateau": liste_croiseur2, "Cases": cases_croiseur},
     {"Numero": 4, "Bateau": liste_cuirasse, "Cases": cases_cuirasse},
     {"Numero": 5, "Bateau": liste_porte_avion, "Cases": cases_porte_avion},
 ]
+dictionnaire_placement2 = {
+    1: [liste_torpilleur,cases_torpilleur],
+    2: [liste_croiseur1,cases_croiseur],
+    3: [liste_cuirasse,cases_croiseur],
+    4: [liste_porte_avion,cases_cuirasse],
+    5: [liste_porte_avion,cases_porte_avion],
+}
 
 #Lors que cette variable est activé, le placement des bateaux s'interrompt.
 bateaux_placer = torpilleur_placer and croiseur1_placer and croiseur2_placer and cuirasse_placer and porte_avion_placer
@@ -221,15 +228,13 @@ def placement_initial():
                 afficher_grille_bateaux_j1()
         elif reponse == "E":
             break
-        elif IndexError:
-            return False
     return grille_bateaux_j1
 
 #---------------------------------------- GROS TEST (VA ÊTRE ENLEVÉ BIENTOT) ----------------------------------------
 
 #PSEUDO-CODE pour cette fonction définie :
-#Des listes de bateaux sont établient.
-#Un ordre de données est établi.
+#Un dictionnaire contenant des listes = Numero, Bateau et Cases.
+#
 
 def placement_initial2():
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
@@ -291,8 +296,6 @@ def placement_initial2():
                 afficher_grille_bateaux_j1()
         elif reponse == "E":
             break
-        elif IndexError:
-            return False
     return grille_bateaux_j1
 
 #placement_initial()
