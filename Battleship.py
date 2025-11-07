@@ -234,7 +234,6 @@ def placement_initial():
 
 #PSEUDO-CODE pour cette fonction définie :
 #Un dictionnaire contenant des listes = Numero, Bateau et Cases.
-#
 
 def placement_initial2():
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
