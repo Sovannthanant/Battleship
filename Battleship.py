@@ -141,7 +141,7 @@ croiseur1_placer = False
 croiseur2_placer = False
 
 #   - Un Cuirassé, dimension de 1x4 cases.
-liste_cuirasse = ["Cu","Cu","Cu","Cu"],
+liste_cuirasse = ["Cu","Cu","Cu","Cu"]
 cases_cuirasse = 3
 cuirasse_placer = False
 
@@ -151,13 +151,13 @@ cases_porte_avion = 4
 porte_avion_placer = False
 
 #Dictionare pour les ordres de placement des bateaux.
-ordre_placement = [
-    {"Ordre": 1, "Bateau": liste_torpilleur, "Cases": cases_torpilleur},
-    {"Ordre": 2, "Bateau": liste_croiseur1, "Cases": cases_croiseur},
-    {"Ordre": 3, "Bateau": liste_croiseur2, "Cases": cases_croiseur},
-    {"Ordre": 4, "Bateau": liste_cuirasse, "Cases": cases_cuirasse},
-    {"Ordre": 5, "Bateau": liste_porte_avion, "Cases": cases_porte_avion},
-]
+ordre_placement = {
+    1 : liste_torpilleur,
+    2 : liste_croiseur1,
+    3 : liste_croiseur2,
+    4 : liste_cuirasse,
+    5 : liste_porte_avion,
+}
 #Lors que cette variable est activé, le placement des bateaux s'interrompt.
 bateaux_placer = torpilleur_placer and croiseur1_placer and croiseur2_placer and cuirasse_placer and porte_avion_placer
 
@@ -170,60 +170,61 @@ def placement_initial():
     #Les bateaux commencent au centre de la grille, à la coordonnée E5.
     ligne =  5
     colonne = 5
+    quantite_bateaux = 0
     grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
     grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
     afficher_grille_bateaux_j1()
     #Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
-    while True:
-        reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
-        if reponse == "W":
-            if ligne == 1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            elif ligne > 1:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                ligne -= 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "S":
-            if ligne == 10:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            elif ligne < 10:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                ligne += 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "A":
-            if colonne == 1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            else:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                colonne -= 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "D":
-            if colonne == 10 -1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            else:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                colonne += 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "E":
-            break
-        elif IndexError:
-            return False
+    while quantite_bateaux < 5:
+        quantite_bateaux += 1
+        while True:
+            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
+            if reponse == "W":
+                if ligne == 1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                elif ligne > 1:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    ligne -= 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "S":
+                if ligne == 10:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                elif ligne < 10:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    ligne += 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "A":
+                if colonne == 1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                else:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    colonne -= 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "D":
+                if colonne == 10 -1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                else:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    colonne += 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "E":
+                break
     return grille_bateaux_j1
 
 #---------------------------------------- GROS TEST (VA ÊTRE ENLEVÉ BIENTOT) ----------------------------------------
@@ -232,69 +233,83 @@ def placement_initial2():
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
     placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
-    #Les bateaux commencent au centre de la grille, à la coordonnée E5.
-    ligne =  5
-    colonne = 5
-    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-    grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
-    afficher_grille_bateaux_j1()
-    #Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
-    while True:
-        reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
-        if reponse == "W":
-            if ligne == 1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            elif ligne > 1:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                ligne -= 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "S":
-            if ligne == 10:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            elif ligne < 10:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                ligne += 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "A":
-            if colonne == 1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            else:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                colonne -= 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "D":
-            if colonne == 10 -1:
-                print("Hors de la grille")
-                afficher_grille_bateaux_j1()
-            else:
-                grille_bateaux_j1[ligne][colonne] = "~~"
-                grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                colonne += 1
-                grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
-                grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
-                afficher_grille_bateaux_j1()
-        elif reponse == "E":
-            break
-        elif IndexError:
-            return False
+    nombre_bateaux = 0          #Le nombre de bateaux dans la grille.
+    cases_bateaux = 0           #Le nombre de cases que le bateau.
+    ordre_placement.get(0)      #Clé pour trouver valeur(listes) des bateaux.
+    while nombre_bateaux < 5:
+    # Les bateaux commencent au centre de la grille, à la coordonnée E5.
+        nombre_bateaux += 1
+        cases_bateaux += 1
+        bateau = ordre_placement.get(cases_bateaux)
+        ligne = 5
+        colonne = 5
+        grille_bateaux_j1[ligne][colonne] = bateau[0]
+        grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+        afficher_grille_bateaux_j1()
+        while True:
+    # Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
+            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
+            if reponse == "R":
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne-1][colonne] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "W":
+                if ligne == 1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                elif ligne > 1:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    ligne -= 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne+1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "S":
+                if ligne == 10:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                elif ligne < 10:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    ligne += 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "A":
+                if colonne == 1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                else:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    colonne -= 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "D":
+                if colonne == 10 -1:
+                    print("Hors de la grille")
+                    afficher_grille_bateaux_j1()
+                else:
+                    grille_bateaux_j1[ligne][colonne] = "~~"
+                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    colonne += 1
+                    grille_bateaux_j1[ligne][colonne] = liste_torpilleur[0]
+                    grille_bateaux_j1[ligne][colonne + 1] = liste_torpilleur[1]
+                    afficher_grille_bateaux_j1()
+            elif reponse == "E":
+                break
     return grille_bateaux_j1
+
+print(ordre_placement.get(1))
+print(f"{ordre_placement.keys}")
+print(f"{ordre_placement.values()}")
 
 #placement_initial()
 placement_initial2()
 input("Appuyer n'importe qu'elle touche pour afficher la grille")
 afficher_grille_bateaux_j1()
+
 
 #LIEN INTERESSANT:
 #https://www.geeksforgeeks.org/python/python-using-2d-arrays-lists-the-right-way/
