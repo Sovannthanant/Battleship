@@ -146,7 +146,7 @@ cuirasse_placer = False
 liste_porte_avion = ["PA","PA","PA","PA","PA"]
 porte_avion_placer = False
 
-#Dictionare pour les ordres de placement des bateaux.
+#Dictionare pour l'ordre de placement des bateaux.
 ordre_placement = {
     1 : liste_torpilleur,
     2 : liste_croiseur1,
@@ -250,8 +250,15 @@ def placement_initial2():
         bateau = ordre_placement.get(cases_bateaux)
         ligne = 5
         colonne = 5
-        grille_bateaux_j1[ligne][colonne] = bateau[0]
-        grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+        for cases in range(len(bateau)):
+            grille_bateaux_j1[ligne][colonne] = bateau[0]
+    # Le troisième bateau qui est croiseur2 a la même liste que croiseur2, donc ses cases ne doivent pas augmenter.
+            if cases_bateaux == 3:
+                grille_bateaux_j1[ligne][colonne + cases_bateaux -1] = bateau[cases_bateaux-1]
+                cases_bateaux += 1
+                nombre_bateaux += 1
+            else:
+                grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
         afficher_grille_bateaux_j1()
         while True:
     # Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
@@ -266,10 +273,10 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
                 elif ligne > 1:
                     grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
                     ligne -= 1
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "S":
                 if ligne == 10:
@@ -277,10 +284,10 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
                 elif ligne < 10:
                     grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
                     ligne += 1
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "A":
                 if colonne == 1:
@@ -288,10 +295,10 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
                 else:
                     grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
                     colonne -= 1
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "D":
                 if colonne == 10 -1:
@@ -299,10 +306,10 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
                 else:
                     grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
                     colonne += 1
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "E":
                 break
