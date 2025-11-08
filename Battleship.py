@@ -243,29 +243,27 @@ def placement_initial2():
     nombre_bateaux = 0
     cases_bateaux = 0
     while nombre_bateaux < 5:
-    # Les bateaux commencent au centre de la grille, à la coordonnée E5.
         cases_bateaux += 1
         nombre_bateaux += 1
-    # Variable = Une valeur qui est choisie par une clé, cases_bateaux.
-        bateau = ordre_placement.get(cases_bateaux)
+    # Pour le dictionnaire.get, je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
+        bateau = ordre_placement.get(nombre_bateaux)
+    # Les bateaux commencent au centre de la grille, à la coordonnée E5.
         ligne = 5
         colonne = 5
-        for cases in range(len(bateau)):
+        for cases in range(nombre_bateaux):     # Le nombre_bateaux va jusqu'à cinq, le nombre de bateaux.
             grille_bateaux_j1[ligne][colonne] = bateau[0]
-    # Le troisième bateau qui est croiseur2 a la même liste que croiseur2, donc ses cases ne doivent pas augmenter.
-            if cases_bateaux == 3:
-                grille_bateaux_j1[ligne][colonne + cases_bateaux -1] = bateau[cases_bateaux-1]
-                cases_bateaux += 1
-                nombre_bateaux += 1
+    # Le troisième bateau, croiseur2, a la même liste que croiseur1, donc sa longueur doit rester la même.
+            if bateau == liste_croiseur2:
+                cases_bateaux -=1
+                grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
             else:
                 grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
         afficher_grille_bateaux_j1()
         while True:
-    # Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
             if reponse == "R":
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[1]
                     afficher_grille_bateaux_j1()
             elif reponse == "W":
                 if ligne == 1:
@@ -312,6 +310,8 @@ def placement_initial2():
                     grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "E":
+                if bateau == liste_croiseur2:
+                    cases_bateaux += 2
                 break
     return grille_bateaux_j1
 
