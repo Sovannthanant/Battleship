@@ -100,28 +100,24 @@ def afficher_grille_bateaux_j1():
     print("I=====I BATEAUX DU JOUEUR 1 I=====I")
     for ligne in grille_bateaux_j1:
         print(*ligne)
-    print("")
 
 def afficher_grille_tir_j1():
     """Fonction qui permet d'afficher la grille des tirs du joueur 1."""
     print("I=======I TIR DU JOUEUR 1 I=======I")
     for ligne in grille_tir_j1:
         print(*ligne)
-    print("")
 
 def afficher_grille_bateaux_j2():
     """Fonction qui permet d'afficher la grille des bateaux du joueur 2."""
     print("I=====I BATEAUX DU JOUEUR 2 I=====I")
     for ligne in grille_bateaux_j2:
         print(*ligne)
-    print("")
 
 def afficher_grille_tirs_j2():
     """Fonction qui permet d'afficher la grille des tirs du joueur 2"""
     print("I=======I TIR DU JOUEUR 2 I=======I")
     for ligne in grille_tir_j2:
         print(*ligne)
-    print("")
 
 #-------------------- 2. Créer les dimensions des cinq différents navires --------------------
 #Nous utiliseront cinq bateaux pour notre jeu Battleship, chacun de ces bateaux sont représentés
@@ -159,7 +155,7 @@ bateaux_placer = torpilleur_placer and croiseur1_placer and croiseur2_placer and
 
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 
-def placement_initial():
+def placement_bateaux():
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
     placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
@@ -232,10 +228,9 @@ def placement_initial():
                 break
     return grille_bateaux_j1
 
-
 #---------------------------------------- GROS TEST (VA ÊTRE ENLEVÉ BIENTOT) ----------------------------------------
 
-def placement_initial2():
+def placement_bateaux2():
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
     placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
@@ -254,21 +249,21 @@ def placement_initial2():
             grille_bateaux_j1[ligne][colonne] = bateau[0]
     # Le troisième bateau, croiseur2, a la même liste que croiseur1, donc sa longueur doit rester la même.
             if bateau == liste_croiseur2:
-                cases_bateaux -=1
+                cases_bateaux -= 1
                 grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
             else:
                 grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-        afficher_grille_bateaux_j1()
+            afficher_grille_bateaux_j1()
         while True:
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
             if reponse == "R":
                     grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[1]
+                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
                     afficher_grille_bateaux_j1()
             elif reponse == "W":
                 if ligne == 1:
-                    print("Hors de la grille")
                     afficher_grille_bateaux_j1()
+                    print("! Hors de la grille !")
                 elif ligne > 1:
                     grille_bateaux_j1[ligne][colonne] = "~~"
                     grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
@@ -278,7 +273,7 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
             elif reponse == "S":
                 if ligne == 10:
-                    print("Hors de la grille")
+                    print("! Hors de la grille !")
                     afficher_grille_bateaux_j1()
                 elif ligne < 10:
                     grille_bateaux_j1[ligne][colonne] = "~~"
@@ -289,7 +284,7 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
             elif reponse == "A":
                 if colonne == 1:
-                    print("Hors de la grille")
+                    print("! Hors de la grille !")
                     afficher_grille_bateaux_j1()
                 else:
                     grille_bateaux_j1[ligne][colonne] = "~~"
@@ -300,7 +295,7 @@ def placement_initial2():
                     afficher_grille_bateaux_j1()
             elif reponse == "D":
                 if colonne == 10 -1:
-                    print("Hors de la grille")
+                    print("! Hors de la grille !")
                     afficher_grille_bateaux_j1()
                 else:
                     grille_bateaux_j1[ligne][colonne] = "~~"
@@ -315,15 +310,27 @@ def placement_initial2():
                 break
     return grille_bateaux_j1
 
+def placement_de_tirs():
+    ligne = input("Joueur1, veuillez entrez une ligne de la grille pour tirer: ")
+    colonne = input("Entrez une colonne de la grille pour tirer: ")
+    A = 1
+    B = 2
+    C = 3
+    D = 4
+    E = 5
+    F = 6
+    G = 7
+    H = 8
+    I = 9
+    J = 10
+
+
 print(ordre_placement.get(1))
-print(f"{ordre_placement.keys}")
+print(f"{ordre_placement.keys()}")
 print(f"{ordre_placement.values()}")
 
-#placement_initial()
-placement_initial2()
-input("Appuyer n'importe qu'elle touche pour afficher la grille")
+#placement_bateaux()
+placement_bateaux2()
+input("Appuyer n'importe qu'elle touche pour afficher la grille: ")
 afficher_grille_bateaux_j1()
-
-
-#LIEN INTERESSANT:
-#https://www.geeksforgeeks.org/python/python-using-2d-arrays-lists-the-right-way/
+placement_de_tirs()
