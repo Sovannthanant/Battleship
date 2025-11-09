@@ -126,23 +126,18 @@ def afficher_grille_tirs_j2():
 
 #   - Un Torpilleur, dimension de 1x2 cases.
 liste_torpilleur = ["To","To"]
-torpilleur_placer = False
 
 #   - Deux Croiseurs, dimension de 1x3 cases.
 liste_croiseur1 = ["C1","C1","C1"]
 liste_croiseur2 = ["C2","C2","C2"]
-croiseur1_placer = False
-croiseur2_placer = False
 
 #   - Un Cuirassé, dimension de 1x4 cases.
 liste_cuirasse = ["Cu","Cu","Cu","Cu"]
-cuirasse_placer = False
 
 #   - Un Porte-Avion, dimension de 1x5 cases.
 liste_porte_avion = ["PA","PA","PA","PA","PA"]
-porte_avion_placer = False
 
-#Dictionare pour l'ordre de placement des bateaux.
+# Dictionnaire pour l'ordre de placement des bateaux.
 ordre_placement = {
     1 : liste_torpilleur,
     2 : liste_croiseur1,
@@ -150,187 +145,104 @@ ordre_placement = {
     4 : liste_cuirasse,
     5 : liste_porte_avion,
 }
-#Lors que cette variable est activé, le placement des bateaux s'interrompt.
-bateaux_placer = torpilleur_placer and croiseur1_placer and croiseur2_placer and cuirasse_placer and porte_avion_placer
 
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 
-def placement_bateaux():
+def message_hors_grille():
+    """ """
+    print("! Le déplacement va hors de la grille. !\n Erreur")
+
+def placement_bateaux(joueur):
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
     placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
-    # Le nombre de bateaux et les cases des bateaux dans la grille.
-    nombre_bateaux = 0
-    cases_bateaux = 0
-    while nombre_bateaux < 5:
-    # Les bateaux commencent au centre de la grille, à la coordonnée E5.
-        cases_bateaux += 1
-        nombre_bateaux += 1
-    # Variable = Une valeur qui est choisie par une clé, cases_bateaux.
-        bateau = ordre_placement.get(cases_bateaux)
-        ligne = 5
-        colonne = 5
-        grille_bateaux_j1[ligne][colonne] = bateau[0]
-        grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-        afficher_grille_bateaux_j1()
-        while True:
-    # Le déplacement des bateaux se fait en utilisant les touches W,A,S,D, R pour tourner et E pour placer.
-            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
-            if reponse == "R":
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "W":
-                if ligne == 1:
-                    print("Hors de la grille")
-                    afficher_grille_bateaux_j1()
-                elif ligne > 1:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                    ligne -= 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "S":
-                if ligne == 10:
-                    print("Hors de la grille")
-                    afficher_grille_bateaux_j1()
-                elif ligne < 10:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                    ligne += 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "A":
-                if colonne == 1:
-                    print("Hors de la grille")
-                    afficher_grille_bateaux_j1()
-                else:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                    colonne -= 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "D":
-                if colonne == 10 -1:
-                    print("Hors de la grille")
-                    afficher_grille_bateaux_j1()
-                else:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + 1] = "~~"
-                    colonne += 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + 1] = bateau[1]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "E":
-                break
-    return grille_bateaux_j1
+    # J'ai réalisé qu'on peut envoyer des variables dans les paramètres des fonctions définies avec ce lien :
+    # https://www.w3schools.com/python/gloss_python_function_arguments.asp
+    if joueur == "j1":
+        grille_bateaux = grille_bateaux_j1
+    elif joueur == "j2":
+        grille_bateaux = grille_bateaux_j2
 
-#---------------------------------------- GROS TEST (VA ÊTRE ENLEVÉ BIENTOT) ----------------------------------------
-
-def placement_bateaux2():
-    """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
-    pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
-    placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
-    # Le nombre de bateaux et les cases des bateaux dans la grille.
     nombre_bateaux = 0
-    cases_bateaux = 0
     while nombre_bateaux < 5:
-        cases_bateaux += 1
         nombre_bateaux += 1
+        horizontal = True
+
     # Pour le dictionnaire.get, je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
         bateau = ordre_placement.get(nombre_bateaux)
-    # Les bateaux commencent au centre de la grille, à la coordonnée E5.
+    # Les bateaux commencent au centre de la grille, à la coordonnée E5 et le nombre_bateaux augmente jusqu'à 5.
         ligne = 5
         colonne = 5
-        for cases in range(nombre_bateaux):     # Le nombre_bateaux va jusqu'à cinq, le nombre de bateaux.
-            grille_bateaux_j1[ligne][colonne] = bateau[0]
-    # Le troisième bateau, croiseur2, a la même liste que croiseur1, donc sa longueur doit rester la même.
-            if bateau == liste_croiseur2:
-                cases_bateaux -= 1
-                grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-            else:
-                grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
+    # Pour i in range (longueur des valeurs des clés dans ordre_placement (ex. 5 : ["PA","PA","PA","PA","PA")).
+        for i in range(len(bateau)):
+            grille_bateaux_j1[ligne][colonne +i] = bateau[i]
+        if joueur == "j1":
             afficher_grille_bateaux_j1()
+        elif joueur == "j2":
+            afficher_grille_bateaux_j2()
+
         while True:
-            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer et E pour placer: "))
-            if reponse == "R":
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-                    afficher_grille_bateaux_j1()
-            elif reponse == "W":
-                if ligne == 1:
-                    afficher_grille_bateaux_j1()
-                    print("! Hors de la grille !")
-                elif ligne > 1:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
+            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer, R pour tourner et E pour placer: "))
+    # Avant le déplacement du bateau, les cases bateau sont effacées pour éviter d'avoir une copie du bateau.
+            if horizontal:
+                for i in range(len(bateau)):
+                    grille_bateaux[ligne][colonne +i] = "~~"
+            elif not horizontal:
+                for i in range(len(bateau)):
+                    grille_bateaux[ligne +i][colonne] = "~~"
+
+    # Les touches "W" et "S" permettent des déplacements vertical, donc les bateaux se déplacent sur ligne.
+            if reponse == "W":
+                if ligne > 1:
                     ligne -= 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-                    afficher_grille_bateaux_j1()
+                elif ligne == 1:
+                    message_hors_grille()
             elif reponse == "S":
-                if ligne == 10:
-                    print("! Hors de la grille !")
-                    afficher_grille_bateaux_j1()
-                elif ligne < 10:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
+                if ligne < 10:
                     ligne += 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-                    afficher_grille_bateaux_j1()
+                elif ligne == 10:
+                    message_hors_grille()
+    # Les touches "A" et "D" permettent des déplacements horizontal, les bateaux se déplacent sur colonne.
             elif reponse == "A":
-                if colonne == 1:
-                    print("! Hors de la grille !")
-                    afficher_grille_bateaux_j1()
-                else:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
+                if colonne > 1:
                     colonne -= 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-                    afficher_grille_bateaux_j1()
+                elif colonne == 1:
+                    message_hors_grille()
             elif reponse == "D":
-                if colonne == 10 -1:
-                    print("! Hors de la grille !")
-                    afficher_grille_bateaux_j1()
-                else:
-                    grille_bateaux_j1[ligne][colonne] = "~~"
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = "~~"
+                if colonne + len(bateau) -1 < 10:
                     colonne += 1
-                    grille_bateaux_j1[ligne][colonne] = bateau[0]
-                    grille_bateaux_j1[ligne][colonne + cases_bateaux] = bateau[cases_bateaux]
-                    afficher_grille_bateaux_j1()
+                elif colonne + len(bateau) -1 == 10:
+                    message_hors_grille()
+    # La touche "R" alterne entre horizontal et not horizontal, et "E" sert à conclure le placement.
+            if reponse == "R":
+                if ligne < 10:
+                    horizontal = not horizontal
+                elif ligne == 10:
+                    message_hors_grille()
             elif reponse == "E":
-                if bateau == liste_croiseur2:
-                    cases_bateaux += 2
+                if horizontal:
+                    for i in range(len(bateau)):
+                        grille_bateaux[ligne][colonne +i] = bateau[i]
+                elif not horizontal:
+                    for i in range(len(bateau)):
+                        grille_bateaux[ligne +i][colonne] = bateau[i]
                 break
-    return grille_bateaux_j1
 
-def placement_de_tirs():
-    ligne = input("Joueur1, veuillez entrez une ligne de la grille pour tirer: ")
-    colonne = input("Entrez une colonne de la grille pour tirer: ")
-    A = 1
-    B = 2
-    C = 3
-    D = 4
-    E = 5
-    F = 6
-    G = 7
-    H = 8
-    I = 9
-    J = 10
+    # Pour éviter de répéter afficher_grille_bateaux_j1(j2) après chaque touches, je l'ai mis à la fin.
+            if horizontal:
+                for i in range(len(bateau)):
+                    grille_bateaux[ligne][colonne +i] = bateau[i]
+            elif not horizontal:
+                for i in range(len(bateau)):
+                    grille_bateaux[ligne +i][colonne] = bateau[i]
+            if joueur == "j1":
+                afficher_grille_bateaux_j1()
+            elif joueur == "j2":
+                afficher_grille_bateaux_j2()
 
-
-print(ordre_placement.get(1))
-print(f"{ordre_placement.keys()}")
-print(f"{ordre_placement.values()}")
 
 #placement_bateaux()
-placement_bateaux2()
-input("Appuyer n'importe qu'elle touche pour afficher la grille: ")
+placement_bateaux("j1")
+placement_bateaux("j2")
+input("Appuyer Entrer pour afficher la grille: ")
 afficher_grille_bateaux_j1()
-placement_de_tirs()
