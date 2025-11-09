@@ -155,7 +155,8 @@ def message_hors_grille():
 def placement_bateaux(joueur):
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
-    placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute."""
+    placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute.
+    FONCTION FAITE PAR VANN SOVANNTHANANT."""
     # J'ai réalisé qu'on peut envoyer des variables dans les paramètres des fonctions définies avec ce lien :
     # https://www.w3schools.com/python/gloss_python_function_arguments.asp
     if joueur == "j1":
@@ -246,50 +247,84 @@ def placement_bateaux(joueur):
 
 #-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
 
+def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
+    """Petite Fonction fonctionnant avec la fonction tirs_sur_grilles, évite de répéter le remplissage de cases."""
+    grille_tirs[colonne][ligne] = "}{"
+    grille_bateaux[colonne][ligne] = "}{"
+    grille_tirs[colonne + 1][ligne + 1] = "()"
+    grille_bateaux[colonne + 1][ligne + 1] = "()"
+
 def tirs_sur_grilles(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
     Si le joueur touche un bateau ennemi : Marque une explosion sur la grille de tir j1 et sur grille bateaux j2.
     Si le joueur fait un tir nul et rate : Marque un tir nul sur la grille de tir du j1 et sur grille bateaux j1.
-    Une fois le tir fait, c'est le tour de l'autre joueur et s'arrête quand tous les batesux sont dértruit."""
+    Une fois le tir fait, c'est le tour de l'autre joueur et s'arrête quand tous les bateaux sont détruits.
+    FONCTION FAITE PAR LAMARANA SOW."""
     if joueur == "j1":
         grille_tirs = grille_tirs_j1
     elif joueur == "j2":
         grille_tirs = grille_tirs_j2
-
+    # J'ai inversé ici, parce qu'un tir dans grille_tirs doit apparaitre dans la grille_bateaux opposée adverse.
     if joueur == "j1":
         grille_bateaux = grille_bateaux_j2
     elif joueur == "j2":
         grille_bateaux = grille_bateaux_j1
 
-    reponse = input("Veuillez entrez une coordonée pour tirer sur la grille (exemple J,10): ")
-    coordonnee = reponse.split(",")
-    print(coordonnee)
-    colonne = str.upper(coordonnee[0])
-    ligne = int(coordonnee[1])
-    if colonne == "A":
-        colonne = 1
-    elif colonne == "B":
-        colonne = 2
-    elif colonne == "C":
-        colonne = 3
-    elif colonne == "D":
-        colonne = 4
-    elif colonne == "E":
-        colonne = 5
-    elif colonne == "F":
-        colonne = 6
-    elif colonne == "G":
-        colonne = 7
-    elif colonne == "H":
-        colonne = 8
-    elif colonne == "I":
-        colonne = 9
-    elif colonne == "J":
-        colonne = 10
-    grille_tirs[colonne][ligne]= "}{"
-    grille_bateaux[colonne][ligne] = "}{"
-    grille_tirs[colonne +1][ligne +1] = "()"
-    grille_bateaux[colonne +1][ligne +1] = "()"
+    while True:
+        reponse = input("Veuillez entrez une coordonée pour tirer sur la grille (exemple J,10): ")
+        if str and "," in reponse:
+            coordonnee = reponse.split(",")
+            ligne = int(coordonnee[1])
+            if 0 < ligne < 11:
+                colonne = str.upper(coordonnee[0])
+                print(coordonnee)
+                if colonne == "A":
+                    colonne = 1
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "B":
+                    colonne = 2
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "C":
+                    colonne = 3
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "D":
+                    colonne = 4
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "E":
+                    colonne = 5
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "F":
+                    colonne = 6
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "G":
+                    colonne = 7
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "H":
+                    colonne = 8
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "I":
+                    colonne = 9
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                elif colonne == "J":
+                    colonne = 10
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
+                else:
+                    print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
+            else:
+                print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
+        else:
+            print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
+
 
     if joueur == "j1":
         afficher_grille_tirs_j1()
