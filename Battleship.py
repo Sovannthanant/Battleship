@@ -271,12 +271,14 @@ def tirs_sur_grilles(joueur):
         grille_bateaux = grille_bateaux_j1
 
     while True:
-        reponse = input("Veuillez entrez une coordonée pour tirer sur la grille (exemple J,10): ")
+        reponse = input("Veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
         if str and "," in reponse:
+    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
+    # https://www.w3schools.com/python/ref_string_split.asp
             coordonnee = reponse.split(",")
+            colonne = str.upper(coordonnee[0])
             ligne = int(coordonnee[1])
             if 0 < ligne < 11:
-                colonne = str.upper(coordonnee[0])
                 print(coordonnee)
                 if colonne == "A":
                     colonne = 1
@@ -318,6 +320,7 @@ def tirs_sur_grilles(joueur):
                     colonne = 10
                     placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
                     break
+    # Divers messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
                 else:
                     print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
             else:
@@ -325,7 +328,7 @@ def tirs_sur_grilles(joueur):
         else:
             print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
 
-
+    # Affichage des grilles de tirs et des grilles de bateaux
     if joueur == "j1":
         afficher_grille_tirs_j1()
         afficher_grille_bateaux_j2()
