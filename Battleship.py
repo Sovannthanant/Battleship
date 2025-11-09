@@ -4,21 +4,21 @@
 #1. Créer le tableau du premier joueur et du deuxième joueur.
 #   - Grille des bateaux et des grilles de tir des deux joueurs.
 #   - Fonctions qui permettent de pourvoir les afficher en tant que grille.
-#2. Créer les dimensions des cinq différents navires:
+#2. Créer les dimensions des cinq différents navires :
 #   - Un Torpilleur, dimension de 1x2 cases.
 #   - Deux Croiseurs, dimensions de 1x3 cases.
 #   - Un Cuirassé, dimension de 1x4 cases.
 #   - Un Porte-Avion, dimension de 1x5 cases.
-#3. Faire Demander aux deux joueurs de placer leurs bateaux dans leurs grilles:
+#3. Faire Demander aux deux joueurs de placer leurs bateaux dans leurs grilles :
 #   - Appuyer les touches W,A,S,D déplace le bateau, R tourne et E le place.
 #       - Si le joueur déplace un bateau hors de la grille, un message est affiché et le mouvement annulé.
 #       - Quand le joueur tourne le bateau (ex. torpilleur 1x2 à 2x1) ajuster les cases pour sens vertical.
 #       - Lorsque le bateau est placé, le prochain bateau est affiché.
 #   - Cette fonction se répète jusqu'à tous les bateaux soient placés, ensuite répéter pour le joueur 2.
-#4. Commencer la partie avec le premier joueur, demander qu'il entre une coordonnée sur sa grille de tir:
+#4. Commencer la partie avec le premier joueur, demander qu'il entre une coordonnée sur sa grille de tir :
 #   - Si le joueur touche un bateau ennemi:
 #       - Marquer une explosion sur grille de tir du joueur 1 et sur la grille bateaux du joueur 2.
-#   - Si le joueur fait un tir nul et touche rien:
+#   - Si le joueur fait un tir nul et touche rien :
 #       - Marquer un tir nul sur la grille de tir du joueur 1 et sur la grille bateaux du joueur 2.
 #   - Tour de l'autre joueur.
 #   - S'arrête quand tous les bateaux d'un joueur sont détruit, la partie se termine.
@@ -39,7 +39,7 @@
 
 
 #-------------------- 1. Créer le tableau du premier joueur et du deuxième joueur --------------------
-#Quand le joueur 1 tir dans sa grille_tir_j1, les tirs sont marqué sur cette grille et le joueur 2 reçoit les tirs du
+#Quand le joueur 1 tir dans sa grille_tir_j1, les tirs sont marqué sur cette grille et le joueur 2 reçoie les tirs du
 #joueur 1 dans sa grille_bateaux_j2. C'est la même chose si le joueur 2 tir sur le joueur 1.
 #   - Les grille_bateaux et grille_tir des deux joueurs sont, les quatres, des listes à 2 dimensions.
 
@@ -56,7 +56,7 @@ grille_bateaux_j1 = [
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
-grille_tir_j1 = [
+grille_tirs_j1 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   #10 elements dans une ligne(list).
     ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une colonne(list(list).
     ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -82,7 +82,7 @@ grille_bateaux_j2 = [
     ["09","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
-grille_tir_j2 = [
+grille_tirs_j2 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   #La grille est une liste à deux dimensions.
     ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #Des listes à l'intérieur d'une grande liste.
     ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -101,10 +101,10 @@ def afficher_grille_bateaux_j1():
     for ligne in grille_bateaux_j1:
         print(*ligne)
 
-def afficher_grille_tir_j1():
+def afficher_grille_tirs_j1():
     """Fonction qui permet d'afficher la grille des tirs du joueur 1."""
     print("I=======I TIR DU JOUEUR 1 I=======I")
-    for ligne in grille_tir_j1:
+    for ligne in grille_tirs_j1:
         print(*ligne)
 
 def afficher_grille_bateaux_j2():
@@ -116,7 +116,7 @@ def afficher_grille_bateaux_j2():
 def afficher_grille_tirs_j2():
     """Fonction qui permet d'afficher la grille des tirs du joueur 2"""
     print("I=======I TIR DU JOUEUR 2 I=======I")
-    for ligne in grille_tir_j2:
+    for ligne in grille_tirs_j2:
         print(*ligne)
 
 #-------------------- 2. Créer les dimensions des cinq différents navires --------------------
@@ -149,7 +149,7 @@ ordre_placement = {
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 
 def message_hors_grille():
-    """ """
+    """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille. """
     print("! Le déplacement va hors de la grille. !\n Erreur")
 
 def placement_bateaux(joueur):
@@ -233,16 +233,75 @@ def placement_bateaux(joueur):
                 for i in range(len(bateau)):
                     grille_bateaux[ligne][colonne +i] = bateau[i]
             elif not horizontal:
-                for i in range(len(bateau)):
-                    grille_bateaux[ligne +i][colonne] = bateau[i]
+                try:
+                    for i in range(len(bateau)):
+                        grille_bateaux[ligne +i][colonne] = bateau[i]
+                except IndexError:
+                    message_hors_grille()
+
             if joueur == "j1":
                 afficher_grille_bateaux_j1()
             elif joueur == "j2":
                 afficher_grille_bateaux_j2()
 
+#-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
 
-#placement_bateaux()
+def tirs_sur_grilles(joueur):
+    """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
+    Si le joueur touche un bateau ennemi : Marque une explosion sur la grille de tir j1 et sur grille bateaux j2.
+    Si le joueur fait un tir nul et rate : Marque un tir nul sur la grille de tir du j1 et sur grille bateaux j1.
+    Une fois le tir fait, c'est le tour de l'autre joueur et s'arrête quand tous les batesux sont dértruit."""
+    if joueur == "j1":
+        grille_tirs = grille_tirs_j1
+    elif joueur == "j2":
+        grille_tirs = grille_tirs_j2
+
+    if joueur == "j1":
+        grille_bateaux = grille_bateaux_j2
+    elif joueur == "j2":
+        grille_bateaux = grille_bateaux_j1
+
+    reponse = input("Veuillez entrez une coordonée pour tirer sur la grille (exemple J,10): ")
+    coordonnee = reponse.split(",")
+    print(coordonnee)
+    colonne = str.upper(coordonnee[0])
+    ligne = int(coordonnee[1])
+    if colonne == "A":
+        colonne = 1
+    elif colonne == "B":
+        colonne = 2
+    elif colonne == "C":
+        colonne = 3
+    elif colonne == "D":
+        colonne = 4
+    elif colonne == "E":
+        colonne = 5
+    elif colonne == "F":
+        colonne = 6
+    elif colonne == "G":
+        colonne = 7
+    elif colonne == "H":
+        colonne = 8
+    elif colonne == "I":
+        colonne = 9
+    elif colonne == "J":
+        colonne = 10
+    grille_tirs[colonne][ligne]= "}{"
+    grille_bateaux[colonne][ligne] = "}{"
+    grille_tirs[colonne +1][ligne +1] = "()"
+    grille_bateaux[colonne +1][ligne +1] = "()"
+
+    if joueur == "j1":
+        afficher_grille_tirs_j1()
+        afficher_grille_bateaux_j2()
+    elif joueur == "j2":
+        afficher_grille_tirs_j2()
+
+
 placement_bateaux("j1")
 placement_bateaux("j2")
+print("I=================================I")
 input("Appuyer Entrer pour afficher la grille: ")
 afficher_grille_bateaux_j1()
+tirs_sur_grilles("j1")
+tirs_sur_grilles("j2")
