@@ -29,19 +29,19 @@
 #       - Si non, terminer le programme.
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
-#   - Plus de Commentaires tout au long du programme.
-#   - Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
+#   - Plus de Commentaires tout au long du programme. ✅
+#   - Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def). ✅
 #   - Faire attention au Pseudo code (Si, Sinon, Demander, Afficher et autre). Ils devraient être plus détaillés et
-#   découper par fonctions.
+#   découper par fonctions. ✅
 #   - Commencer à déplacer certaines fonctions dans un autre fichier pour les utiliser comme modules, hors du principal.
 #   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
-#   - Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
+#   - Il faut avancer plus vite, il reste beaucoup de travails à faire encore. ✅
 
 
 #-------------------- 1. Créer le tableau du premier joueur et du deuxième joueur --------------------
 #Quand le joueur 1 tir dans sa grille_tir_j1, les tirs sont marqué sur cette grille et le joueur 2 reçoie les tirs du
 #joueur 1 dans sa grille_bateaux_j2. C'est la même chose si le joueur 2 tir sur le joueur 1.
-#   - Les grille_bateaux et grille_tir des deux joueurs sont, les quatres, des listes à 2 dimensions.
+#   - Les grille_bateaux et grille_tir des deux joueurs sont, les quatre, des listes à 2 dimensions.
 
 grille_bateaux_j1 = [
     ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],
@@ -169,7 +169,7 @@ def placement_bateaux(joueur):
         nombre_bateaux += 1
         horizontal = True
 
-    # Pour le dictionnaire.get, je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
+    # Pour la fonction ".get", je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
         bateau = ordre_placement.get(nombre_bateaux)
     # Les bateaux commencent au centre de la grille, à la coordonnée E5 et le nombre_bateaux augmente jusqu'à 5.
         ligne = 5
@@ -249,12 +249,17 @@ def placement_bateaux(joueur):
 
 def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     """Petite Fonction fonctionnant avec la fonction tirs_sur_grilles, évite de répéter le remplissage de cases."""
-    grille_tirs[ligne][colonne] = "}{"
-    grille_bateaux[ligne][colonne] = "}{"
-    grille_tirs[ligne + 1][colonne + 1] = "()"
-    grille_bateaux[ligne + 1][colonne + 1] = "()"
+    # Cette fonction n'est pas terminée et en phase de testé
+    if grille_bateaux[ligne][colonne] == "~~":
+        grille_tirs[ligne][colonne] = "}{"
+        grille_bateaux[ligne][colonne] = "}{"
+    elif grille_bateaux[ligne][colonne] == "To" or "C1" or "C2" or "Cu" or "PA":
+        grille_tirs[ligne][colonne] = "()"
+        grille_bateaux[ligne][colonne] = "()"
+    elif grille_bateaux[ligne][colonne] == "}{" or "()":
+        print("Vous avez déjà tirer ici, veuillez réessayer.")
 
-def tirs_sur_grilles(joueur):
+def demande_coordonnee(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
     Si le joueur touche un bateau ennemi : Marque une explosion sur la grille de tir j1 et sur grille bateaux j2.
     Si le joueur fait un tir nul et rate : Marque un tir nul sur la grille de tir du j1 et sur grille bateaux j1.
@@ -324,7 +329,7 @@ def tirs_sur_grilles(joueur):
                 else:
                     print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
             else:
-                print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
+                print("Veuillez entrez un nombre de 1 à 10 pour la valeur après la virgule.")
         else:
             print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
 
@@ -334,7 +339,9 @@ def tirs_sur_grilles(joueur):
         afficher_grille_bateaux_j2()
     elif joueur == "j2":
         afficher_grille_tirs_j2()
+        afficher_grille_bateaux_j1()
 
+#-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 
 placement_bateaux("j1")
 placement_bateaux("j2")
@@ -342,5 +349,21 @@ print("I=================================I")
 input("Appuyer Entrer pour afficher la grille: ")
 afficher_grille_bateaux_j1()
 while True:
-    tirs_sur_grilles("j1")
-    tirs_sur_grilles("j2")
+    demande_coordonnee("j1")
+    demande_coordonnee("j2")
+
+
+#ERREUR REMARQUER
+#Dans la fonction def placement_bateau :
+#   - Quand les bateaux sont "not horizontal", ils ne peuvent pas aller à droite de la grille parce que le programme
+#   compte encore l'horizontal. Le porte-avion de cinq cases ne peut pas aller à quatre cases depuis la droite, car
+#   son "horizontal" est de cinq cases.
+#   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague,
+#   se fait effacer. Il faut trouver une façon de sauvegarder : peut-être faire une copie avant le prochain placement
+#   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
+
+#Dans la fonction def demande_coordonnee :
+#   - Les tirs ne sont montrés, mais ne sont pas encore sauvegardés à l'intérieur des tableaux.
+#       - Je peux seulement faire un tir "}{" et un tir "()", après, ils se déplacent avec la nouvelle coordonnée.
+#   - Tirer sur une case "}{" donne un tir touché "()".
+#   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
