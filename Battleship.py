@@ -249,10 +249,10 @@ def placement_bateaux(joueur):
 
 def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     """Petite Fonction fonctionnant avec la fonction tirs_sur_grilles, évite de répéter le remplissage de cases."""
-    grille_tirs[colonne][ligne] = "}{"
-    grille_bateaux[colonne][ligne] = "}{"
-    grille_tirs[colonne + 1][ligne + 1] = "()"
-    grille_bateaux[colonne + 1][ligne + 1] = "()"
+    grille_tirs[ligne][colonne] = "}{"
+    grille_bateaux[ligne][colonne] = "}{"
+    grille_tirs[ligne + 1][colonne + 1] = "()"
+    grille_bateaux[ligne + 1][colonne + 1] = "()"
 
 def tirs_sur_grilles(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
@@ -274,7 +274,7 @@ def tirs_sur_grilles(joueur):
         reponse = input("Veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
         if str and "," in reponse:
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
-    # https://www.w3schools.com/python/ref_string_split.asp
+    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
             coordonnee = reponse.split(",")
             colonne = str.upper(coordonnee[0])
             ligne = int(coordonnee[1])
@@ -320,7 +320,7 @@ def tirs_sur_grilles(joueur):
                     colonne = 10
                     placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
                     break
-    # Divers messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
+    # Trois messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
                 else:
                     print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
             else:
@@ -341,5 +341,6 @@ placement_bateaux("j2")
 print("I=================================I")
 input("Appuyer Entrer pour afficher la grille: ")
 afficher_grille_bateaux_j1()
-tirs_sur_grilles("j1")
-tirs_sur_grilles("j2")
+while True:
+    tirs_sur_grilles("j1")
+    tirs_sur_grilles("j2")
