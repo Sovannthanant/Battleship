@@ -253,11 +253,13 @@ def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     if grille_bateaux[ligne][colonne] == "~~":
         grille_tirs[ligne][colonne] = "}{"
         grille_bateaux[ligne][colonne] = "}{"
+        print("TIR MANQUÉ")
     elif grille_bateaux[ligne][colonne] == "To" or "C1" or "C2" or "Cu" or "PA":
         grille_tirs[ligne][colonne] = "()"
         grille_bateaux[ligne][colonne] = "()"
+        print("TIR TOUCHÉ")
     elif grille_bateaux[ligne][colonne] == "}{" or "()":
-        print("Vous avez déjà tirer ici, veuillez réessayer.")
+        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
 
 def demande_coordonnee(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
@@ -275,11 +277,18 @@ def demande_coordonnee(joueur):
     elif joueur == "j2":
         grille_bateaux = grille_bateaux_j1
 
+    torpilleur_couler = False
+    croiseur1_couler = False
+    croiseur2_couler = False
+    cuirasse_couler = False
+    porte_avion_couler = False
+    bateaux_couler = torpilleur_couler, croiseur1_couler, croiseur2_couler, cuirasse_couler, porte_avion_couler
+
+    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
+    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
     while True:
         reponse = input("Veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
         if str and "," in reponse:
-    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
-    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
             coordonnee = reponse.split(",")
             colonne = str.upper(coordonnee[0])
             ligne = int(coordonnee[1])
@@ -348,9 +357,8 @@ placement_bateaux("j2")
 print("I=================================I")
 input("Appuyer Entrer pour afficher la grille: ")
 afficher_grille_bateaux_j1()
-while True:
-    demande_coordonnee("j1")
-    demande_coordonnee("j2")
+demande_coordonnee("j1")
+demande_coordonnee("j2")
 
 
 #ERREUR REMARQUER
