@@ -146,6 +146,14 @@ ordre_placement = {
     5 : liste_porte_avion,
 }
 
+# Des variables bool et une variable tuple (utiliser dans demade_coordonnée).
+torpilleur_couler = False
+croiseur1_couler = False
+croiseur2_couler = False
+cuirasse_couler = False
+porte_avion_couler = False
+bateaux_couler = torpilleur_couler, croiseur1_couler, croiseur2_couler, cuirasse_couler, porte_avion_couler
+
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 
 def message_hors_grille():
@@ -267,27 +275,20 @@ def demande_coordonnee(joueur):
     Si le joueur fait un tir nul et rate : Marque un tir nul sur la grille de tir du j1 et sur grille bateaux j1.
     Une fois le tir fait, c'est le tour de l'autre joueur et s'arrête quand tous les bateaux sont détruits.
     FONCTION FAITE PAR LAMARANA SOW."""
-    if joueur == "j1":
+    if joueur == "Joueur1":
         grille_tirs = grille_tirs_j1
-    elif joueur == "j2":
+    elif joueur == "Joueur2":
         grille_tirs = grille_tirs_j2
     # J'ai inversé ici, parce qu'un tir dans grille_tirs doit apparaitre dans la grille_bateaux opposée adverse.
-    if joueur == "j1":
+    if joueur == "Joueur1":
         grille_bateaux = grille_bateaux_j2
-    elif joueur == "j2":
+    elif joueur == "Joueur2":
         grille_bateaux = grille_bateaux_j1
-
-    torpilleur_couler = False
-    croiseur1_couler = False
-    croiseur2_couler = False
-    cuirasse_couler = False
-    porte_avion_couler = False
-    bateaux_couler = torpilleur_couler, croiseur1_couler, croiseur2_couler, cuirasse_couler, porte_avion_couler
 
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
     while True:
-        reponse = input("Veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
+        reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
         if str and "," in reponse:
             coordonnee = reponse.split(",")
             colonne = str.upper(coordonnee[0])
@@ -341,24 +342,21 @@ def demande_coordonnee(joueur):
                 print("Veuillez entrez un nombre de 1 à 10 pour la valeur après la virgule.")
         else:
             print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
-
-    # Affichage des grilles de tirs et des grilles de bateaux
-    if joueur == "j1":
+    # Affichage des grilles de tirs (j'affiche des grilles de bateaux pour des tests).
+    if joueur == "Joueur1":
         afficher_grille_tirs_j1()
-        afficher_grille_bateaux_j2()
-    elif joueur == "j2":
+    elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
-        afficher_grille_bateaux_j1()
 
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 
+print("I====I PHASE DES PLACEMENT  I====I")
 placement_bateaux("j1")
 placement_bateaux("j2")
-print("I=================================I")
-input("Appuyer Entrer pour afficher la grille: ")
-afficher_grille_bateaux_j1()
-demande_coordonnee("j1")
-demande_coordonnee("j2")
+print("I=======I PHASE DES TIRS I=======I")
+while "To" or "C1" or "C2" or "Cu" or "PA" in grille_bateaux_j1 or grille_bateaux_j2:
+    demande_coordonnee("Joueur1")
+    demande_coordonnee("Joueur2")
 
 
 #ERREUR REMARQUER
@@ -370,7 +368,7 @@ demande_coordonnee("j2")
 #   se fait effacer. Il faut trouver une façon de sauvegarder : peut-être faire une copie avant le prochain placement
 #   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
 
-#Dans la fonction def demande_coordonnee :
+#Dans la fonction def demande_coordonnée :
 #   - Les tirs ne sont montrés, mais ne sont pas encore sauvegardés à l'intérieur des tableaux.
 #       - Je peux seulement faire un tir "}{" et un tir "()", après, ils se déplacent avec la nouvelle coordonnée.
 #   - Tirer sur une case "}{" donne un tir touché "()".
