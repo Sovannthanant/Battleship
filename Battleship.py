@@ -413,5 +413,4 @@ while "To" or "C1" or "C2" or "Cu" or "PA" in grille_bateaux_j1 or grille_bateau
 #   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
 
 #Dans la fonction def demande_coordonnée :
-#   - Tirer sur une case "}{" donne un tir touché "()".
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
