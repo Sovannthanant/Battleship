@@ -146,14 +146,6 @@ ordre_placement = {
     5 : liste_porte_avion,
 }
 
-# Des variables bool et une variable tuple (utiliser dans demade_coordonnée).
-torpilleur_couler = False
-croiseur1_couler = False
-croiseur2_couler = False
-cuirasse_couler = False
-porte_avion_couler = False
-bateaux_couler = torpilleur_couler, croiseur1_couler, croiseur2_couler, cuirasse_couler, porte_avion_couler
-
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 
 def message_hors_grille():
@@ -261,7 +253,7 @@ def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     if grille_bateaux[ligne][colonne] == "~~":
         grille_tirs[ligne][colonne] = "}{"
         grille_bateaux[ligne][colonne] = "}{"
-        print("TIR MANQUÉ")
+        print("TIR MANQUÉ 🌊")
     elif (grille_bateaux[ligne][colonne] == "To" or
           grille_bateaux[ligne][colonne] == "C1" or
           grille_bateaux[ligne][colonne] == "C2" or
@@ -269,8 +261,11 @@ def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
           grille_bateaux[ligne][colonne] == "PA"):
         grille_tirs[ligne][colonne] = "()"
         grille_bateaux[ligne][colonne] = "()"
-        print("TIR TOUCHÉ")
+        print("TIR TOUCHÉ 💥")
 
+def message_tirs_sur_tirs():
+    """petite fonction pour pouvoir modifier la réponse quand un tir et tirer sur un tir (évite de modifier 12x)."""
+    print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER. ⚠️")
 
 def demande_coordonnee(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
@@ -293,122 +288,137 @@ def demande_coordonnee(joueur):
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
     while True:
         reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
-        if str and "," in reponse:
-            coordonnee = reponse.split(",")
-            colonne = str.upper(coordonnee[0])
-            ligne = int(coordonnee[1])
-            if 0 < ligne < 11:
-                print(coordonnee)
-    # Je n'ai pas pu rapetisser ou optimiser ces conditions "if", je n'ai pas su comment.
-                if colonne == "A":
-                    colonne = 1
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+        try:
+            if str and "," in reponse:
+                coordonnee = reponse.split(",")
+                colonne = str.upper(coordonnee[0])
+                ligne = int(coordonnee[1])
+                if 0 < ligne < 11:
+                    print(coordonnee)
+        # Je n'ai pas pu rapetisser ou optimiser ces conditions "if", j'ai déja fait une fonction définie pour éviter de
+        # répéter douze lignes de codes supplémentaires pour chaques conditions "if" et "elif.
+                    if colonne == "A":
+                        colonne = 1
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                            break
+                    elif colonne == "B":
+                        colonne = 2
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
                         break
-                elif colonne == "B":
-                    colonne = 2
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
+                    elif colonne == "C":
+                        colonne = 3
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "D":
+                        colonne = 4
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "E":
+                        colonne = 5
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "F":
+                        colonne = 6
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "G":
+                        colonne = 7
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "H":
+                        colonne = 8
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "I":
+                        colonne = 9
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+                    elif colonne == "J":
+                        colonne = 10
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
+        # Trois messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
                     else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "C":
-                    colonne = 3
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "D":
-                    colonne = 4
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "E":
-                    colonne = 5
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "F":
-                    colonne = 6
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "G":
-                    colonne = 7
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "H":
-                    colonne = 8
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "I":
-                    colonne = 9
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-                elif colonne == "J":
-                    colonne = 10
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER.")
-                    else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-    # Trois messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
+                        print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
                 else:
-                    print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
+                    print("Veuillez entrez un nombre de 1 à 10 pour la valeur après la virgule.")
             else:
-                print("Veuillez entrez un nombre de 1 à 10 pour la valeur après la virgule.")
-        else:
+                print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
+        except ValueError:
             print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
+
     # Affichez les grilles de tirs pour que les joueurs comprennent où ils ont tirés.
     if joueur == "Joueur1":
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
+
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 
 print("I====I PHASE DES PLACEMENT  I====I")
 placement_bateaux("j1")
 #placement_bateaux("j2")
+
 print("I=======I PHASE DES TIRS I=======I")
-while "To" or "C1" or "C2" or "Cu" or "PA" in grille_bateaux_j1 or grille_bateaux_j2:
+while True:
     #demande_coordonnee("Joueur1")
     demande_coordonnee("Joueur2")
 
+
+"""
+"To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
+"C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
+"C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
+"Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
+"PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2
+"""
 
 #ERREUR REMARQUER
 #Dans la fonction def placement_bateau :
 #   - Quand les bateaux sont "not horizontal", ils ne peuvent pas aller à droite de la grille parce que le programme
 #   compte encore l'horizontal. Le porte-avion de cinq cases ne peut pas aller à quatre cases depuis la droite, car
 #   son "horizontal" est de cinq cases.
-#   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague,
+#   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague et
 #   se fait effacer. Il faut trouver une façon de sauvegarder : peut-être faire une copie avant le prochain placement
 #   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
 
