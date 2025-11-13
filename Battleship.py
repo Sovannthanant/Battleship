@@ -20,6 +20,7 @@
 #       - Marquer une explosion sur grille de tir du joueur 1 et sur la grille bateaux du joueur 2.
 #   - Si le joueur fait un tir nul et touche rien :
 #       - Marquer un tir nul sur la grille de tir du joueur 1 et sur la grille bateaux du joueur 2.
+#
 #   - Tour de l'autre joueur.
 #   - S'arrête quand tous les bateaux d'un joueur sont détruit, la partie se termine.
 #5. Quand la partie est terminé, un message de victoire pour le joueur gagnant est affiché.
@@ -29,13 +30,13 @@
 #       - Si non, terminer le programme.
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
-#   - Plus de Commentaires tout au long du programme. ✅
-#   - Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def). ✅
-#   - Faire attention au Pseudo code (Si, Sinon, Demander, Afficher et autre). Ils devraient être plus détaillés et
-#   découper par fonctions. ✅
+#   - ✅ Plus de Commentaires tout au long du programme.
+#   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
+#   - ✅ Faire attention au Pseudo code (Si, Sinon, Demander, Afficher et autre). Ils devraient être plus détaillés et
+#   découper par fonctions.
 #   - Commencer à déplacer certaines fonctions dans un autre fichier pour les utiliser comme modules, hors du principal.
 #   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
-#   - Il faut avancer plus vite, il reste beaucoup de travails à faire encore. ✅
+#   - ✅ Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
 
 
 #-------------------- 1. Créer le tableau du premier joueur et du deuxième joueur --------------------
@@ -283,109 +284,31 @@ def demande_coordonnee(joueur):
     elif joueur == "Joueur2":
         grille_bateaux = grille_bateaux_j1
 
-
-    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
-    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
+    # J'ai utilisé un dictionnaire, car c'est plus efficace que d'utiliser des fonctions "if" pour chaque lettre.
+    lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
     while True:
         reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
         try:
-            if str and "," in reponse:
+    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
+    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
+            if str and "," in reponse or "" in reponse:
                 coordonnee = reponse.split(",")
+                print(coordonnee)
                 colonne = str.upper(coordonnee[0])
+                colonne = int(lettre_colonne[colonne])
                 ligne = int(coordonnee[1])
-                if 0 < ligne < 11:
-                    print(coordonnee)
-        # Je n'ai pas pu rapetisser ou optimiser ces conditions "if", j'ai déja fait une fonction définie pour éviter de
-        # répéter douze lignes de codes supplémentaires pour chaques conditions "if" et "elif.
-                    if colonne == "A":
-                        colonne = 1
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                            break
-                    elif colonne == "B":
-                        colonne = 2
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "C":
-                        colonne = 3
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "D":
-                        colonne = 4
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "E":
-                        colonne = 5
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "F":
-                        colonne = 6
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "G":
-                        colonne = 7
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "H":
-                        colonne = 8
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "I":
-                        colonne = 9
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-                    elif colonne == "J":
-                        colonne = 10
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
-        # Trois messages d'erreurs pour dire à l'utilisateur comment écrire une coordonnée correctement.
-                    else:
-                        print("Veuillez entrez une lettre entre A à J pour la lettre avant la virgule.")
+                # Si le tir a été placé sur une cse de tir "}{" ou "()":
+                #   - Affichez un message d'erreur et redemander la coordonnée.
+                if (grille_bateaux[ligne][colonne] == "}{" or
+                    grille_bateaux[ligne][colonne] == "()"):
+                    message_tirs_sur_tirs()
                 else:
-                    print("Veuillez entrez un nombre de 1 à 10 pour la valeur après la virgule.")
+                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                    break
             else:
-                print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
-        except ValueError:
-            print("Veuillez entrez un bonne coordonée en suivant le format (lettre, nombre).")
+                print("Veuillez écrire une coordonnée en suivant le format: lettre,chiffre. ⚠️")
+        except KeyError or ValueError or IndexError:
+            print("Veuillez écrire une lettre de A à J, une virgule et un chiffre de 1 à 10. ⚠️")
 
     # Affichez les grilles de tirs pour que les joueurs comprennent où ils ont tirés.
     if joueur == "Joueur1":
