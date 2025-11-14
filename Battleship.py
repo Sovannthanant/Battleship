@@ -151,7 +151,7 @@ ordre_placement = {
 
 def message_hors_grille():
     """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille. """
-    print("! Le déplacement va hors de la grille. !\n Erreur")
+    print("LE DÉPLACEMENT VA HORS DE LA GRILLE. ⚠️")
 
 def placement_bateaux(joueur):
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
@@ -200,9 +200,9 @@ def placement_bateaux(joueur):
                 elif ligne == 1:
                     message_hors_grille()
             elif reponse == "S":
-                if ligne < 10:
+                if ligne < 10 and (not ligne + len(bateau) -1 >= 10):
                     ligne += 1
-                elif ligne == 10:
+                elif ligne == 10 or (ligne + len(bateau) - 1>= 10):
                     message_hors_grille()
     # Les touches "A" et "D" permettent des déplacements horizontal, les bateaux se déplacent sur colonne.
             elif reponse == "A":
@@ -211,7 +211,7 @@ def placement_bateaux(joueur):
                 elif colonne == 1:
                     message_hors_grille()
             elif reponse == "D":
-                if colonne + len(bateau) -1 < 10:
+                if colonne + len(bateau) -1 < 10 or (colonne < 10 and not horizontal):
                     colonne += 1
                 elif colonne + len(bateau) -1 == 10:
                     message_hors_grille()
@@ -291,22 +291,26 @@ def demande_coordonnee(joueur):
         try:
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
-            if str and "," in reponse or "" in reponse:
+            if str and "," in reponse:
                 coordonnee = reponse.split(",")
                 print(coordonnee)
-                colonne = str.upper(coordonnee[0])
-                colonne = int(lettre_colonne[colonne])
                 ligne = int(coordonnee[1])
-                # Si le tir a été placé sur une cse de tir "}{" ou "()":
-                #   - Affichez un message d'erreur et redemander la coordonnée.
-                if (grille_bateaux[ligne][colonne] == "}{" or
-                    grille_bateaux[ligne][colonne] == "()"):
-                    message_tirs_sur_tirs()
+                if 1 <= ligne <=10:
+                    colonne = str.upper(coordonnee[0])
+                    if colonne in lettre_colonne.keys():
+                        colonne = int(lettre_colonne[colonne])
+                        # Si le tir a été placé sur une cse de tir "}{" ou "()":
+                        #   - Affichez un message d'erreur et redemander la coordonnée.
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                            break
+                    else:
+                        print("Veuillez écrire une lettre de A à J pour tirer dans la grille. ⚠️")
                 else:
-                    placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                    break
-            else:
-                print("Veuillez écrire une coordonnée en suivant le format: lettre,chiffre. ⚠️")
+                    print("Veuillez écrire un chiffre de 1 à 10 pour tirer dans la grille. ⚠️")
         except KeyError or ValueError or IndexError:
             print("Veuillez écrire une lettre de A à J, une virgule et un chiffre de 1 à 10. ⚠️")
 
@@ -338,9 +342,6 @@ while True:
 
 #ERREUR REMARQUER
 #Dans la fonction def placement_bateau :
-#   - Quand les bateaux sont "not horizontal", ils ne peuvent pas aller à droite de la grille parce que le programme
-#   compte encore l'horizontal. Le porte-avion de cinq cases ne peut pas aller à quatre cases depuis la droite, car
-#   son "horizontal" est de cinq cases.
 #   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague et
 #   se fait effacer. Il faut trouver une façon de sauvegarder : peut-être faire une copie avant le prochain placement
 #   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
