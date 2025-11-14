@@ -125,14 +125,14 @@ ordre_placement = {
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee
 
 print("I====I PHASE DES PLACEMENT  I====I")
-placement_bateaux("j1")
-#placement_bateaux("j2")
+placement_bateaux("Joueur1")
+#placement_bateaux("Joueur2")
 
 print("I=======I PHASE DES TIRS I=======I")
-while True:
+while ("To" in grille_bateaux_j1):
     #demande_coordonnee("Joueur1")
     demande_coordonnee("Joueur2")
-
+print("Victoire")
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
@@ -144,10 +144,9 @@ while True:
 #   - ✅ Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
 
 #ERREUR REMARQUER
-#Dans la fonction def placement_bateau :
+#TODO: Dans la fonction def placement_bateau :
 #   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague et
-#   se fait effacer. Il faut trouver une façon de sauvegarder : peut-être faire une copie avant le prochain placement
-#   Ou bloquer le mouvement ou permettre de passer au dessus en gardant l'élément du bateau en dessous.
-
-#Dans la fonction def demande_coordonnée :
+#     se fait effacer.
+#TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
+#TODO: Faire une fonction qui affiche victoire et demande aux joueurs s'ils veulent rejouer.

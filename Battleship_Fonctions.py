@@ -45,7 +45,7 @@ def afficher_grille_tirs_j2():
 
 def message_hors_grille():
     """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille, utilisée
-     dans la fonction définies"""
+     dans la fonction définie placement_bateaux(joeur)."""
     print("LE DÉPLACEMENT VA HORS DE LA GRILLE. ⚠️")
 
 def placement_bateaux(joueur):
@@ -57,9 +57,9 @@ def placement_bateaux(joueur):
     from Battleship import ordre_placement, grille_bateaux_j1,grille_bateaux_j2
     # J'ai réalisé qu'on peut envoyer des variables dans les paramètres des fonctions définies avec ce lien :
     # https://www.w3schools.com/python/gloss_python_function_arguments.asp
-    if joueur == "j1":
+    if joueur == "Joueur1":
         grille_bateaux = grille_bateaux_j1
-    elif joueur == "j2":
+    elif joueur == "Joueur2":
         grille_bateaux = grille_bateaux_j2
 
     nombre_bateaux = 0
@@ -75,9 +75,9 @@ def placement_bateaux(joueur):
     # Pour i in range (longueur des valeurs des clés dans ordre_placement (ex. 5 : ["PA","PA","PA","PA","PA")).
         for i in range(len(bateau)):
             grille_bateaux[ligne][colonne +i] = bateau[i]
-        if joueur == "j1":
+        if joueur == "Joueur1":
             afficher_grille_bateaux_j1()
-        elif joueur == "j2":
+        elif joueur == "Joueur2":
             afficher_grille_bateaux_j2()
 
         while True:
@@ -139,9 +139,9 @@ def placement_bateaux(joueur):
                 except IndexError:
                     message_hors_grille()
 
-            if joueur == "j1":
+            if joueur == "Joueur1":
                 afficher_grille_bateaux_j1()
-            elif joueur == "j2":
+            elif joueur == "Joueur2":
                 afficher_grille_bateaux_j2()
 
 
@@ -194,24 +194,30 @@ def demande_coordonnee(joueur):
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
         if str and "," in reponse:
             coordonnee = reponse.split(",")
-            print(coordonnee)
-            ligne = int(coordonnee[1])
-            if 1 <= ligne <=10:
-                colonne = str.upper(coordonnee[0])
-                if colonne in lettre_colonne.keys():
-                    colonne = int(lettre_colonne[colonne])
-                    # Si le tir a été placé sur une cse de tir "}{" ou "()":
-                    #   - Affichez un message d'erreur et redemander la coordonnée.
-                    if (grille_bateaux[ligne][colonne] == "}{" or
-                        grille_bateaux[ligne][colonne] == "()"):
-                        message_tirs_sur_tirs()
+            try:
+                print(coordonnee)
+                ligne = int(coordonnee[1])
+                if 1<= ligne <= 10:
+                    colonne = str.upper(coordonnee[0])
+                    if colonne in lettre_colonne.keys():
+                        colonne = int(lettre_colonne[colonne])
+                        # Si le tir a été placé sur une cse de tir "}{" ou "()":
+                        #   - Affichez un message d'erreur et redemander la coordonnée.
+                        if (grille_bateaux[ligne][colonne] == "}{" or
+                            grille_bateaux[ligne][colonne] == "()"):
+                            message_tirs_sur_tirs()
+                        else:
+                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                            break
+    # Des messages pour signaler au joueur comment écrire une bonne coordonnée, couvre toutes les erreurs.
                     else:
-                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                        break
+                        print("Veuillez entrez une lettre de A à J pour tirer dans la grille. ⚠️")
                 else:
-                    print("Veuillez écrire une lettre de A à J pour tirer dans la grille.⚠️")
-            else:
-                print("Veuillez écrire un chiffre de 1 à 10 pour tirer dans la grille. ⚠️")
+                    print("Veuillez entrez un chiffre de 1 à 10 pour tirer dans la grille. ⚠️")
+            except ValueError or IndexError or TypeError:
+                print("Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10. ⚠️")
+        else:
+            print("Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10. ⚠️")
 
     # Affichez les grilles de tirs pour que les joueurs comprennent où ils ont tirés.
     if joueur == "Joueur1":
