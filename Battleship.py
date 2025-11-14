@@ -129,9 +129,8 @@ placement_bateaux("Joueur1")
 #placement_bateaux("Joueur2")
 
 print("I=======I PHASE DES TIRS I=======I")
-while ("To" in grille_bateaux_j1):
-    #demande_coordonnee("Joueur1")
-    demande_coordonnee("Joueur2")
+#demande_coordonnee("Joueur1")
+demande_coordonnee("Joueur2")
 print("Victoire")
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
@@ -149,4 +148,5 @@ print("Victoire")
 #     se fait effacer.
 #TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
+#TODO: Réparer le programme qui répéte la fonction de placement.
 #TODO: Faire une fonction qui affiche victoire et demande aux joueurs s'ils veulent rejouer.
