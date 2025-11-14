@@ -5,7 +5,7 @@
 # Pour régler ce problème, j'ai placé plusieurs "import" dans les formules définies, ils sont alors exécutés dans un
 # ordre. Pour trouver cette solution, j'ai regardé cette vidéo : https://www.youtube.com/watch?v=UnKa_t-M_kM
 
-#---------------------------------------- Fonctions d'affichage des grilles ----------------------------------------
+#-------------------- Fonctions qui permettent de pourvoir les afficher en tant que grille. --------------------
 # Celle-ci apporte les listes de listes qui sont entrées dans les fonctions si dessus pour être affichées en tant que
 # grille. Ils ne sont pas utilisées dans le fichier principal, mais dans des fonctions définies se trouvant plus bas.
 
@@ -37,7 +37,11 @@ def afficher_grille_tirs_j2():
     for ligne in grille_tirs_j2:
         print(*ligne)
 
-#---------------------------------------- Fonction de placement des bateaux ----------------------------------------
+
+
+#-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
+# L'importation de grille_bateaux_j1 et de grille_bateaux_j2 permettent leur modification pour contenir les bateaux et
+# l'importation de l'ordre de placement permet de placer en ordre: torpilleur > 2 croiseurs > cuirasse > porte-avion.
 
 def message_hors_grille():
     """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille, utilisée
@@ -140,7 +144,11 @@ def placement_bateaux(joueur):
             elif joueur == "j2":
                 afficher_grille_bateaux_j2()
 
-#---------------------------------------- Fonction de tirs sur les grilles ----------------------------------------
+
+
+#-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
+# Les grille_bateaux_j1, grille_bateaux_j2, grille_tirs_j1 et grille_tirs_j2 sont importées pour pouvoir marquer les
+# marque de tirs touchés et tirs nuls.
 
 def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     """Petite Fonction fonctionnant avec la fonction tirs_sur_grilles, évite de répéter le remplissage de cases."""
@@ -210,3 +218,5 @@ def demande_coordonnee(joueur):
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
+
+#-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
