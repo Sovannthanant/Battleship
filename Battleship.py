@@ -288,31 +288,28 @@ def demande_coordonnee(joueur):
     lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
     while True:
         reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
-        try:
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
-            if str and "," in reponse:
-                coordonnee = reponse.split(",")
-                print(coordonnee)
-                ligne = int(coordonnee[1])
-                if 1 <= ligne <=10:
-                    colonne = str.upper(coordonnee[0])
-                    if colonne in lettre_colonne.keys():
-                        colonne = int(lettre_colonne[colonne])
-                        # Si le tir a été placé sur une cse de tir "}{" ou "()":
-                        #   - Affichez un message d'erreur et redemander la coordonnée.
-                        if (grille_bateaux[ligne][colonne] == "}{" or
-                            grille_bateaux[ligne][colonne] == "()"):
-                            message_tirs_sur_tirs()
-                        else:
-                            placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
-                            break
+        if str and "," in reponse:
+            coordonnee = reponse.split(",")
+            print(coordonnee)
+            ligne = int(coordonnee[1])
+            if 1 <= ligne <=10:
+                colonne = str.upper(coordonnee[0])
+                if colonne in lettre_colonne.keys():
+                    colonne = int(lettre_colonne[colonne])
+                    # Si le tir a été placé sur une cse de tir "}{" ou "()":
+                    #   - Affichez un message d'erreur et redemander la coordonnée.
+                    if (grille_bateaux[ligne][colonne] == "}{" or
+                        grille_bateaux[ligne][colonne] == "()"):
+                        message_tirs_sur_tirs()
                     else:
-                        print("Veuillez écrire une lettre de A à J pour tirer dans la grille. ⚠️")
+                        placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
+                        break
                 else:
-                    print("Veuillez écrire un chiffre de 1 à 10 pour tirer dans la grille. ⚠️")
-        except KeyError or ValueError or IndexError:
-            print("Veuillez écrire une lettre de A à J, une virgule et un chiffre de 1 à 10. ⚠️")
+                    print("Veuillez écrire une lettre de A à J pour tirer dans la grille.⚠️")
+            else:
+                print("Veuillez écrire un chiffre de 1 à 10 pour tirer dans la grille. ⚠️")
 
     # Affichez les grilles de tirs pour que les joueurs comprennent où ils ont tirés.
     if joueur == "Joueur1":
