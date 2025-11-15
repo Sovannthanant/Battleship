@@ -9,6 +9,7 @@
 # Celle-ci apporte les listes de listes qui sont entrées dans les fonctions si dessus pour être affichées en tant que
 # grille. Ils ne sont pas utilisées dans le fichier principal, mais dans des fonctions définies se trouvant plus bas.
 
+
 def afficher_grille_bateaux_j1():
     """Fonction qui permet d'afficher la grille des bateaux du joueur 1."""
     print("I=====I BATEAUX DU JOUEUR 1 I=====I")
@@ -52,7 +53,7 @@ def placement_bateaux(joueur):
     pour faire une rotation et E pour placer le bateau. Une fois placer, le prochain bateau apparait pour son
     placement. Quand les bateaux sont placés, c'est au tour de l'autre joueur de placer, puis la partie débute.
     FONCTION FAITE PAR VANN SOVANNTHANANT."""
-    from Battleship import ordre_placement, grille_bateaux_j1, grille_bateaux_j2
+    from Battleship import (grille_bateaux_j1, grille_bateaux_j2, ordre_placement)
     # Cette importation amène un dictionnaire qui contient l'ordre de placement et la liste des cinq bateaux.
     # J'ai réalisé qu'on peut envoyer des variables dans les paramètres des fonctions définies avec ce lien :
     # https://www.w3schools.com/python/gloss_python_function_arguments.asp
@@ -174,7 +175,7 @@ def demande_coordonnee(joueur):
     Si le joueur fait un tir nul et rate : Marque un tir nul sur la grille de tir du j1 et sur grille bateaux j1.
     Une fois le tir fait, c'est le tour de l'autre joueur et s'arrête quand tous les bateaux sont détruits.
     FONCTION FAITE PAR LAMARANA SOW."""
-    from Battleship import grille_tirs_j1, grille_tirs_j2, grille_bateaux_j1, grille_bateaux_j2
+    from Battleship import (grille_tirs_j1, grille_tirs_j2, grille_bateaux_j1, grille_bateaux_j2)
     if joueur == "Joueur1":
         grille_tirs = grille_tirs_j1
     elif joueur == "Joueur2":

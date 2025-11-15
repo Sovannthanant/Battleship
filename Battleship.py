@@ -121,24 +121,32 @@ ordre_placement = {
 
 
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
-
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee
 
-print("I====I PHASE DES PLACEMENT  I====I")
-placement_bateaux("Joueur1")
-#placement_bateaux("Joueur2")
+if __name__ == "__main__":
+    print("I====I PHASE DES PLACEMENT  I====I")
+    placement_bateaux("Joueur1")
+    #placement_bateaux("Joueur2")
 
-print("I=======I PHASE DES TIRS I=======I")
-#demande_coordonnee("Joueur1")
-demande_coordonnee("Joueur2")
-print("Victoire")
+    print("I=======I PHASE DES TIRS I=======I")
+    while True:
+        print("Potato")
+        #demande_coordonnee("Joueur1")
+        demande_coordonnee("Joueur2")
+    print("Victoire")
 
+"""
+("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
+           "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
+           "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
+           "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
+           "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):"""
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
 #   - ✅ Faire attention au Pseudo code (Si, Sinon, Demander, Afficher et autre). Ils devraient être plus détaillés et
 #   découper par fonctions.
-#   - ✅ Commencer à déplacer certaines fonctions dans un autre fichier pour les utiliser comme modules, hors du principal.
+#   - ✅ Commencer à déplacer certaines fonctions dans un fichier pour les utiliser comme modules, hors du principal.
 #   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
 #   - ✅ Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
 
@@ -148,5 +156,4 @@ print("Victoire")
 #     se fait effacer.
 #TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
-#TODO: Réparer le programme qui répéte la fonction de placement.
 #TODO: Faire une fonction qui affiche victoire et demande aux joueurs s'ils veulent rejouer.
