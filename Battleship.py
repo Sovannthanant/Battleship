@@ -129,7 +129,11 @@ if __name__ == "__main__":
     #placement_bateaux("Joueur2")
 
     print("I=======I PHASE DES TIRS I=======I")
-    while True:
+    while ("To" not in grille_bateaux_j1 or "To" not in grille_bateaux_j2 or
+           "C1" not in grille_bateaux_j1 or "C1" not in grille_bateaux_j2 or
+           "C2" not in grille_bateaux_j1 or "C2" not in grille_bateaux_j2 or
+           "Cu" not in grille_bateaux_j1 or "Cu" not in grille_bateaux_j2 or
+           "PA" not in grille_bateaux_j1 or "PA" not in grille_bateaux_j2):
         print("Potato")
         #demande_coordonnee("Joueur1")
         demande_coordonnee("Joueur2")
@@ -137,18 +141,19 @@ if __name__ == "__main__":
 
 """
 ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
-           "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
-           "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
-           "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
-           "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):"""
+ "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
+ "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
+ "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
+ "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
+"""
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
 #   - ✅ Faire attention au Pseudo code (Si, Sinon, Demander, Afficher et autre). Ils devraient être plus détaillés et
 #   découper par fonctions.
 #   - ✅ Commencer à déplacer certaines fonctions dans un fichier pour les utiliser comme modules, hors du principal.
-#   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
 #   - ✅ Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
+#   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
 
 #ERREUR REMARQUER
 #TODO: Dans la fonction def placement_bateau :
@@ -157,3 +162,4 @@ if __name__ == "__main__":
 #TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
 #TODO: Faire une fonction qui affiche victoire et demande aux joueurs s'ils veulent rejouer.
+#TODO: FAire les test pytest et plan de test unitaire.
