@@ -124,27 +124,34 @@ ordre_placement = {
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee
 
 if __name__ == "__main__":
-    print("I====I PHASE DES PLACEMENT  I====I")
-    placement_bateaux("Joueur1")
-    #placement_bateaux("Joueur2")
+    while True:
+        print("I====I PHASE DES PLACEMENT  I====I")
+        placement_bateaux("Joueur1")
+        placement_bateaux("Joueur2")
 
-    print("I=======I PHASE DES TIRS I=======I")
-    while ("To" not in grille_bateaux_j1 or "To" not in grille_bateaux_j2 or
-           "C1" not in grille_bateaux_j1 or "C1" not in grille_bateaux_j2 or
-           "C2" not in grille_bateaux_j1 or "C2" not in grille_bateaux_j2 or
-           "Cu" not in grille_bateaux_j1 or "Cu" not in grille_bateaux_j2 or
-           "PA" not in grille_bateaux_j1 or "PA" not in grille_bateaux_j2):
-        print("Potato")
-        #demande_coordonnee("Joueur1")
-        demande_coordonnee("Joueur2")
-    print("Victoire")
+        print("I=======I PHASE DES TIRS I=======I")
+        while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
+               "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
+               "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
+               "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
+               "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
+            print("Potato")
+            demande_coordonnee("Joueur1")
+            Joueur = "Joueur1"
+            demande_coordonnee("Joueur2")
+            Joueur = "Joueur2"
+        reponse = str.upper(input(f"Joueur1, vous avez gagner! Entrez\nOUI si voulez vous rejouez: "))
+        if reponse == "OUI":
+            print("")
+        else:
+            break
 
 """
-("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
- "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
- "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
- "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
- "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
+while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
+       "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
+       "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
+       "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
+       "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
 """
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
@@ -161,5 +168,4 @@ if __name__ == "__main__":
 #     se fait effacer.
 #TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
-#TODO: Faire une fonction qui affiche victoire et demande aux joueurs s'ils veulent rejouer.
 #TODO: FAire les test pytest et plan de test unitaire.
