@@ -146,6 +146,7 @@ if __name__ == "__main__":
         else:
             break
 
+# Boucle que j'essayai d'utiliser pour terminer la partie.
 """
 while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
        "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
@@ -168,4 +169,3 @@ while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
 #     se fait effacer.
 #TODO: Dans la fonction def demande_coordonnée :
 #   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
-#TODO: FAire les test pytest et plan de test unitaire.
