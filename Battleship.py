@@ -122,6 +122,7 @@ ordre_placement = {
 
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee
+#-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 
 if __name__ == "__main__":
     while True:
@@ -135,11 +136,12 @@ if __name__ == "__main__":
                "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
                "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
                "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
-            print("Potato")
             demande_coordonnee("Joueur1")
+# Je n'ai pas pu terminer la fonction boucle, je n'ai pas eu le temps de terminer cette partie.
             Joueur = "Joueur1"
             demande_coordonnee("Joueur2")
             Joueur = "Joueur2"
+# Je n'ai pas encore fini, donc le message de victoire s'affiche seulement pour une personne.
         reponse = str.upper(input(f"Joueur1, vous avez gagner! Entrez\nOUI si voulez vous rejouez: "))
         if reponse == "OUI":
             print("")

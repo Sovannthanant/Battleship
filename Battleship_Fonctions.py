@@ -224,5 +224,3 @@ def demande_coordonnee(joueur):
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
-
-#-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
