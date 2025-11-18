@@ -1,6 +1,6 @@
 # Plan de test pour les fonctions de Battleship.py
  
-## ---------- Fonctions d'affichage ----------
+## 1.---------- Fonctions d'affichage ----------
 Il n'y a pas beaucoup de vérifications à faire pour les fonctions d'affichages.\
 Elles impriment des listes sous forme de grille pour faire des tableaux.
 ### afficher_grille_bateaux_j1()
@@ -21,7 +21,7 @@ Elles impriment des listes sous forme de grille pour faire des tableaux.
 | La grille imprimée | La grille imprimée | Bon        |
 
 
-## ---------- Fonctions de placement ----------
+## 2.---------- Fonctions de placement ----------
 ### message_hors_grille()
 | Valeur expecter                        | Valeur sortie                          | Bon ou non|
 |----------------------------------------|----------------------------------------|-----------|
@@ -40,7 +40,7 @@ Elles impriment des listes sous forme de grille pour faire des tableaux.
 Le déplacement d'un bateau sur un autre, efface celui qui est en dessous.
 
 
-## ---------- Fonctions de tirs ----------
+## 3.---------- Fonctions de tirs ----------
 ### placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
 | Valeur entrée                 | Valeur expecter                      | Valeur sortie               | Bon ou non |
 |-------------------------------|--------------------------------------|-----------------------------|------------|
@@ -58,3 +58,6 @@ Le déplacement d'un bateau sur un autre, efface celui qui est en dessous.
 | E,11          | "Veuillez entrez un chiffre de 1 à 10 pour tirer dans la grille."     | "Veuillez entrez un chiffre de 1 à 10 pour tirer dans la grille."    | Bon        |
 | K,5           | "Veuillez entrez une lettre de A à J pour tirer dans la grille."      | "Veuillez entrez une lettre de A à J pour tirer dans la grille."     | Bon        |
 | BA,11         | "Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10." | "Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10."| Bon        |
+
+## 4.---------- Boucle de partie ----------
+Quand on recommence une partie. Les anciens tableaux sont conservés.

@@ -139,11 +139,12 @@ def placement_bateaux(joueur):
                 except IndexError:
                     message_hors_grille()
 
-            if joueur == "Joueur1":
-                afficher_grille_bateaux_j1()
-            elif joueur == "Joueur2":
-                afficher_grille_bateaux_j2()
-
+        if joueur == "Joueur1" and nombre_bateaux == 5:
+            afficher_grille_bateaux_j1()
+            return grille_bateaux.copy()
+        elif joueur == "Joueur2" and nombre_bateaux == 5:
+            afficher_grille_bateaux_j2()
+            return grille_bateaux.copy()
 
 
 #-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
