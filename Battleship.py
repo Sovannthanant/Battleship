@@ -119,9 +119,11 @@ ordre_placement = {
     5 : liste_porte_avion,
 }
 
-
+# Une variable pour déterminer si la partie est terminée
+partie_terminer = False
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
-from Battleship_Fonctions import placement_bateaux, demande_coordonnee
+from Battleship_Fonctions import placement_bateaux, demande_coordonnee, afficher_grille_tirs_j2
+
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 
 if __name__ == "__main__":
@@ -131,31 +133,30 @@ if __name__ == "__main__":
         placement_bateaux("Joueur2")
 
         print("I=======I PHASE DES TIRS I=======I")
-        while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
-               "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
-               "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
-               "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
-               "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
-            demande_coordonnee("Joueur1")
-# Je n'ai pas pu terminer la fonction boucle, je n'ai pas eu le temps de terminer cette partie.
-            Joueur = "Joueur1"
-            demande_coordonnee("Joueur2")
-            Joueur = "Joueur2"
-# Je n'ai pas encore fini, donc le message de victoire s'affiche seulement pour une personne.
-        reponse = str.upper(input(f"Joueur1, vous avez gagner! Entrez\nOUI si voulez vous rejouez: "))
+        while not partie_terminer:
+            for ligne in grille_bateaux_j2:
+                for cases in ligne:
+                    for cases in ("To","C1","C2","Cu","PA"):
+                        demande_coordonnee("Joueur1")
+                    else:
+                        print("Joueur 1, vous avez gagner!")
+                        partie_terminer = True
+                        break
+            for ligne in grille_bateaux_j1:
+                for cases in ligne:
+                    for cases in ("To","C1","C2","Cu","PA"):
+                        demande_coordonnee("Joueur2")
+                    else:
+                        print("Joueur 2, vous avez gagner!")
+                        partie_terminer = True
+                        break
+        reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
         if reponse == "OUI":
             print("")
         else:
             break
 
-# Boucle que j'essayai d'utiliser pour terminer la partie.
-"""
-while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
-       "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
-       "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
-       "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
-       "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
-"""
+
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
