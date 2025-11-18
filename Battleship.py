@@ -136,7 +136,7 @@ if __name__ == "__main__":
         while not partie_terminer:
             for ligne in grille_bateaux_j2:
                 for cases in ligne:
-                    for cases in ("To","C1","C2","Cu","PA"):
+                    if cases in ("To","C1","C2","Cu","PA"):
                         demande_coordonnee("Joueur1")
                     else:
                         print("Joueur 1, vous avez gagner!")
@@ -144,18 +144,31 @@ if __name__ == "__main__":
                         break
             for ligne in grille_bateaux_j1:
                 for cases in ligne:
-                    for cases in ("To","C1","C2","Cu","PA"):
+                    if cases in ("To","C1","C2","Cu","PA"):
                         demande_coordonnee("Joueur2")
                     else:
                         print("Joueur 2, vous avez gagner!")
                         partie_terminer = True
                         break
+
+        print("I======I PARTIE TERMINÉE I======I")
         reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
         if reponse == "OUI":
             print("")
         else:
             break
 
+"""
+if (cases == "To" or
+    cases == "C1" or
+    cases == "C2" or
+    cases == "Cu" or
+    cases == "PA"):
+                        
+if cases in ("To","C1","C2","Cu","PA"):
+
+
+"""
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
