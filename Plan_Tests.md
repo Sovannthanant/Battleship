@@ -58,6 +58,7 @@ Le déplacement d'un bateau sur un autre, efface celui qui est en dessous.
 | E,11          | "Veuillez entrez un chiffre de 1 à 10 pour tirer dans la grille."     | "Veuillez entrez un chiffre de 1 à 10 pour tirer dans la grille."    | Bon        |
 | K,5           | "Veuillez entrez une lettre de A à J pour tirer dans la grille."      | "Veuillez entrez une lettre de A à J pour tirer dans la grille."     | Bon        |
 | BA,11         | "Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10." | "Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10."| Bon        |
+Apres 10 tirs, la fonction demande_coordonnée s'arrête. Erreur dans la fonction principale, pas la fonction elle-même.
 
 ## 4.---------- Boucle de partie ----------
 Quand on recommence une partie. Les anciens tableaux sont conservés.
