@@ -141,8 +141,10 @@ def placement_bateaux(joueur):
 
             if joueur == "Joueur1":
                 afficher_grille_bateaux_j1()
+                return grille_bateaux_j1
             elif joueur == "Joueur2":
                 afficher_grille_bateaux_j2()
+                return grille_bateaux_j2
 
 
 

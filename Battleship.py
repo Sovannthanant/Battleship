@@ -119,34 +119,46 @@ ordre_placement = {
     5 : liste_porte_avion,
 }
 
+# Variable déterminant si le jeu est terminé.
+jeu_terminer = False
 
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
+from Battleship_Fonctions import afficher_grille_bateaux_j1, afficher_grille_bateaux_j2
 
 if __name__ == "__main__":
     while True:
         print("I====I PHASE DES PLACEMENT  I====I")
-        placement_bateaux("Joueur1")
-        placement_bateaux("Joueur2")
+        grille_bateaux_j1 = placement_bateaux("Joueur1")
+        grille_bateaux_j2 = placement_bateaux("Joueur2")
 
         print("I=======I PHASE DES TIRS I=======I")
-        while ("To" in grille_bateaux_j1 or "To" in grille_bateaux_j2 or
-               "C1" in grille_bateaux_j1 or "C1" in grille_bateaux_j2 or
-               "C2" in grille_bateaux_j1 or "C2" in grille_bateaux_j2 or
-               "Cu" in grille_bateaux_j1 or "Cu" in grille_bateaux_j2 or
-               "PA" in grille_bateaux_j1 or "PA" in grille_bateaux_j2):
-            demande_coordonnee("Joueur1")
-# Je n'ai pas pu terminer la fonction boucle, je n'ai pas eu le temps de terminer cette partie.
-            Joueur = "Joueur1"
-            demande_coordonnee("Joueur2")
-            Joueur = "Joueur2"
-# Je n'ai pas encore fini, donc le message de victoire s'affiche seulement pour une personne.
-        reponse = str.upper(input(f"Joueur1, vous avez gagner! Entrez\nOUI si voulez vous rejouez: "))
+        while not jeu_terminer:
+            for ligne in grille_bateaux_j2:
+                for cases in ligne:
+                    if cases in ("To","C1","C2","Cu","PA"):
+                        demande_coordonnee("Joueur1")
+                        jeu_terminer = True
+                        break
+                if jeu_terminer:
+                    print("Joueur1, vous avez gagner!")
+            for ligne in grille_bateaux_j1:
+                for cases in ligne:
+                    if cases in ("To","C1","C2","Cu","PA"):
+                        demande_coordonnee("Joueur2")
+                        jeu_terminer = True
+                        break
+                if jeu_terminer:
+                    print("Joueur2, vous avez gagner!")
+
+        print("I================================I")
+        reponse = str.upper(input("Entrez OUI si voulez vous rejouez: "))
         if reponse == "OUI":
             print("")
         else:
             break
+
 
 # Boucle que j'essayai d'utiliser pour terminer la partie.
 """
