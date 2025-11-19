@@ -127,7 +127,7 @@ ordre_placement = {
 # Une variable pour déterminer si la partie est terminée
 partie_terminer = False
 tour_joueur1 = 1
-
+compteur_bateaux = 0
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee, afficher_grille_tirs_j2
 
@@ -148,12 +148,55 @@ if __name__ == "__main__":
         grille_bateaux_j2 = placement_bateaux("Joueur2")
 
         print("I=======I PHASE DES TIRS I=======I")
+        while not partie_terminer:
+            # Tour du premier joueur.
+            if tour_joueur1 == True:
+                demande_coordonnee("Joueur1")
+                for ligne in grille_bateaux_j2:
+                    if ("To" in ligne or
+                        "C1" in ligne or
+                        "C2" in ligne or
+                        "Cu" in ligne or
+                        "PA" in ligne):
+                        compteur_bateaux += 1
+                    else:
+                        compteur_bateaux += 0
+                if compteur_bateaux > 0:
+                    tour_joueur1 = False
+                    compteur_bateaux = 0
+                elif compteur_bateaux == 0:
+                    partie_terminer = True
+                    print("Joueur 1, vous avez gagner!")
+
+            # Tour du deuxième joueur.
+            if tour_joueur1 == False:
+                demande_coordonnee("Joueur2")
+                for ligne in grille_bateaux_j1:
+                    if ("To" in ligne or
+                        "C1" in ligne or
+                        "C2" in ligne or
+                        "Cu" in ligne or
+                        "PA" in ligne):
+                        compteur_bateaux += 1
+                    else:
+                        compteur_bateaux += 0
+                if compteur_bateaux > 0:
+                    tour_joueur1 = False
+                    compteur_bateaux = 0
+                elif compteur_bateaux == 0:
+                    partie_terminer = True
+                    print("Joueur 2, vous avez gagner!")
 
 
-# Une boucle pour tirer jusqu'à que les bateaux aient coulés.
-#
+        print("I======I PARTIE TERMINÉE I======I")
+        reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
+        if reponse == "OUI":
+            print("")
+        else:
+            break
 
-# Cette boucle est là pour laisser les joueurs tirer jusqu'à qu'il n'y a plus de bateaux reste.
+
+"""
         while not partie_terminer:
             if tour_joueur1 == True:
                 for ligne in grille_bateaux_j2:
@@ -180,15 +223,7 @@ if __name__ == "__main__":
                             tour_joueur1 = True
                             partie_terminer = True
                             print("Joueur 2, vous avez gagner!")
-
-            print("I======I PARTIE TERMINÉE I======I")
-            reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
-# Si la réponse est OUI, le programme revient au début de la boucle et la partie recommence.
-            if reponse == "OUI":
-                print("")
-            else:
-                break
-
+"""
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
