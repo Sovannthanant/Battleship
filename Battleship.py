@@ -52,8 +52,8 @@ grille_bateaux_j1 = [
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
 grille_tirs_j1 = [
-    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   #10 elements dans une ligne(list).
-    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #10 elements dans une colonne(list(list).
+    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   # 10 elements dans une ligne(list).
+    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   # 10 elements dans une colonne(list(list).
     ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["03","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["04","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -78,9 +78,9 @@ grille_bateaux_j2 = [
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
 grille_tirs_j2 = [
-    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   #La grille est une liste à deux dimensions.
-    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   #Des listes à l'intérieur d'une grande liste.
-    ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],   # La grille est une liste à deux dimensions.
+    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   # Des listes à l'intérieur d'une grande liste.
+    ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],   # Grilles crée par VANN SOVANNTHANANT.
     ["03","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["04","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["05","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -91,15 +91,12 @@ grille_tirs_j2 = [
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
 
-gbj1 = grille_bateaux_j1.copy()
-gtj1 = grille_tirs_j1.copy()
-gbj2 = grille_bateaux_j2.copy()
-gtj2 = grille_tirs_j2.copy()
 
 #-------------------- 2. Créer les dimensions des cinq différents navires --------------------
-#Nous utiliseront cinq bateaux pour notre jeu Battleship, chacun de ces bateaux sont représentés
-#par des éléments dans une liste. Le plus il y a d'élément, le plus long est le bateau. Il y a
-#un bool pour vérifier quand les bateaux ont été placés, ça servira dans une fonction plus tard.
+# Nous utiliseront cinq bateaux pour notre jeu Battleship, chacun de ces bateaux sont représentés
+# par des éléments dans une liste. Le plus il y a d'élément, le plus long est le bateau. Il y a
+# un bool pour vérifier quand les bateaux ont été placés, ça servira dans une fonction plus tard.
+# Variables et dictionnaire fait par LAMARANA SOW et VANN SOVANNTHANANT.
 
 #   - Un Torpilleur, dimension de 1x2 cases.
 liste_torpilleur = ["To","To"]
@@ -132,20 +129,24 @@ tour_joueur1 = True
 
 # Un Int pour voir s'il reste des bateaux dans des grilles.
 compteur_bateaux = 0
+
+
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee, affichage_ecran_accueil, texte_clignotant
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 # Dans le programme principal, j'ai utilisé beaucoup de fonctions liées aux temps pour afficher les messages à
-# un certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur.
+# un certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur. - VANN SOVANNTHANANT
 import time
 
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
     while True:
+        # L'écran d'acceuil.
         affichage_ecran_accueil()
         input("I=I Appuyer Entrée pour Débuter I=I")
         print("\n"*10)
 
+        # Les placements de bateaux.
         print("I=====I PHASE DES PLACEMENT I=====I")
         print("Les joueurs vont placer les bateaux.\nLes contrôles sont W,A,S,D,R et E.")
         texte_clignotant("...CHARGEMENT GRILLE_BATEAUX_J1...",4)
@@ -156,6 +157,7 @@ if __name__ == "__main__":
         grille_bateaux_j2 = placement_bateaux("Joueur2")
         print("\n" * 10)
 
+        # Les placements de tirs.
         print("I=======I PHASE DES TIRS I=======I")
         print("Les joueurs vont essayer de tirer\nsur les bateaux ennemis en entrant\ndes coordonnées. (exemple: A,5).")
         texte_clignotant("...CHARGEMENT GRILLE_TIRS(J1,J2)...", 5)
@@ -202,6 +204,7 @@ if __name__ == "__main__":
                     print("Joueur 2, vous avez gagner! ⭐")
             time.sleep(2)
 
+        # Demande si les joueurs veulent rejouer.
         print("I======I PARTIE TERMINÉE I======I")
         reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
         if reponse == "OUI":

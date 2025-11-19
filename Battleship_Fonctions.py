@@ -108,7 +108,7 @@ def placement_bateaux(joueur):
             elif reponse == "S":
                 if ligne <10 and grille_bateaux[ligne +1][colonne] not in ("To","C1","C2","Cu","PA"):
                     ligne += 1
-                elif ligne == 10 and (not horizontal + len(bateau) <10):
+                elif ligne == 10 and (not horizontal +len(bateau) <10):
                     message_hors_grille()
                 elif grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA"):
                     message_sur_bateau()
@@ -122,10 +122,14 @@ def placement_bateaux(joueur):
                     message_sur_bateau()
     # Si colonne + len(bateau) -1 < 10 OU colonne <10 et pas horizontal (peut maintenant aller à droite de la grille).
             elif reponse == "D":
-                if colonne + len(bateau) -1 < 10 or (colonne < 10 and not horizontal):
+                if (colonne + len(bateau) -1 < 10 and
+                    grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA") or
+                    (colonne < 10 and not horizontal)):
                     colonne += 1
-                elif colonne + len(bateau) -1 == 10:
+                elif colonne +len(bateau) -1 == 10:
                     message_hors_grille()
+                elif grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA"):
+                    message_sur_bateau()
     # La touche "R" alterne entre horizontal et not horizontal, et "E" sert à conclure le placement.
             if reponse == "R":
                 if ligne < 10:
@@ -263,7 +267,7 @@ ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
     ["                                   "],
     ["            _+_  //  //            "],
-    ["     =--=/I-I_____I_I---I-I\\=--= "],
+    ["_____ =--=/I-I_____I_I---I-I\\=--= "],
     ["\\_°°°°°_°°°°°_____________________/"],
     ["~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --"],
 ]
