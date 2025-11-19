@@ -81,6 +81,10 @@ def placement_bateaux(joueur):
             afficher_grille_bateaux_j2()
 
         while True:
+            if joueur == "Joueur1":
+                afficher_grille_bateaux_j1()
+            elif joueur == "Joueur2":
+                afficher_grille_bateaux_j2()
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer, R pour tourner et E pour placer: "))
     # Avant le déplacement du bateau, les cases bateau sont effacées pour éviter d'avoir une copie du bateau.
             if horizontal:
@@ -140,12 +144,9 @@ def placement_bateaux(joueur):
                     message_hors_grille()
 
         if joueur == "Joueur1" and nombre_bateaux == 5:
-            afficher_grille_bateaux_j1()
             return grille_bateaux
         elif joueur == "Joueur2" and nombre_bateaux == 5:
-            afficher_grille_bateaux_j2()
             return grille_bateaux
-
 
 #-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
 # Les grille_bateaux_j1, grille_bateaux_j2, grille_tirs_j1 et grille_tirs_j2 sont importées pour pouvoir marquer les
@@ -189,6 +190,12 @@ def demande_coordonnee(joueur):
 
     # J'ai utilisé un dictionnaire, car c'est plus efficace que d'utiliser des fonctions "if" pour chaque lettre.
     lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
+
+    if joueur == "Joueur1":
+        afficher_grille_tirs_j1()
+    elif joueur == "Joueur2":
+        afficher_grille_tirs_j2()
+
     while True:
         reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :

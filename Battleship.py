@@ -165,9 +165,9 @@ if __name__ == "__main__":
                             "PA" in ligne):
                             demande_coordonnee("Joueur1")
                             tour_joueur1 = False
+                            partie_terminer = True
+                            print("Joueur 1, vous avez gagner!")
 # S'il n'y a plus de bateaux dans une des grilles, la partie est terminée et le joueur gagne.
-                print("Joueur 1, vous avez gagner!")
-                partie_terminer = True
             if tour_joueur1 == False:
                 for ligne in grille_bateaux_j1:
                     for cases in ligne:
@@ -178,16 +178,16 @@ if __name__ == "__main__":
                             "PA" in ligne):
                             demande_coordonnee("Joueur2")
                             tour_joueur1 = True
-            print("Joueur 2, vous avez gagner!")
-            partie_terminer = True
+                            partie_terminer = True
+                            print("Joueur 2, vous avez gagner!")
 
-        print("I======I PARTIE TERMINÉE I======I")
-        reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
+            print("I======I PARTIE TERMINÉE I======I")
+            reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
 # Si la réponse est OUI, le programme revient au début de la boucle et la partie recommence.
-        if reponse == "OUI":
-            print("")
-        else:
-            break
+            if reponse == "OUI":
+                print("")
+            else:
+                break
 
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
