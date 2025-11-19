@@ -133,33 +133,31 @@ tour_joueur1 = True
 # Un Int pour voir s'il reste des bateaux dans des grilles.
 compteur_bateaux = 0
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
-from Battleship_Fonctions import placement_bateaux, demande_coordonnee, dessin_bateau, texte_clignotant
+from Battleship_Fonctions import placement_bateaux, demande_coordonnee, affichage_ecran_accueil, texte_clignotant
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 import time
 
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
     while True:
-        # J'ai print le dessin en utilisant \n à la place d'une grille et d'un fonc.
-        print("I=======I JEU BATTLESHIP  I=======I")
-        print("                                   \n"
-              "           _+_  //  //             \n"
-              "___ ---=//-I_____I_I---I-\\\\=---  \n"
-              "\\_°°°°°_°°°°°_____________________/\n"
-              "~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --")
+        affichage_ecran_accueil()
         input("I===I Appuyer Entrée pour Run I===I")
         print("\n"*10)
 
         print("I=====I PHASE DES PLACEMENT I=====I")
-        print("Les joueurs vont placer les bateaux\nLes contrôles sont W,A,S,D,R et E.")
-        texte_clignotant("...CHARGEMENT GRILLE BATEAU J1...",3)
+        print("Les joueurs vont placer les bateaux.\nLes contrôles sont W,A,S,D,R et E.")
+        texte_clignotant("...CHARGEMENT GRILLE_BATEAUX_J1...",4)
         print("\n" * 10)
         grille_bateaux_j1 = placement_bateaux("Joueur1")
-        texte_clignotant("...CHARGEMENT GRILLE BATEAU J2...", 3)
+        texte_clignotant("...CHARGEMENT GRILLE_BATEAUX_J2...", 3)
         print("\n" * 10)
         grille_bateaux_j2 = placement_bateaux("Joueur2")
+        print("\n" * 10)
 
         print("I=======I PHASE DES TIRS I=======I")
+        print("Les joueurs vont essayer de tirer\nsur les bateaux ennemis en entrant\ndes coordonnées. (exemple: A,5).")
+        texte_clignotant("...CHARGEMENT GRILLE_TIRS(J1,J2)...", 5)
+        print("\n" * 10)
         while not partie_terminer:
             # Tour du premier joueur.
             if tour_joueur1 == True:
@@ -180,7 +178,8 @@ if __name__ == "__main__":
                     compteur_bateaux = 0
                 elif compteur_bateaux == 0:
                     partie_terminer = True
-                    print("Joueur 1, vous avez gagner!")
+                    print("Joueur 1, vous avez gagner! ⭐")
+            time.sleep(2)
             # Tour du deuxième joueur.
             if tour_joueur1 == False:
                 demande_coordonnee("Joueur2")
@@ -198,7 +197,8 @@ if __name__ == "__main__":
                     compteur_bateaux = 0
                 elif compteur_bateaux == 0:
                     partie_terminer = True
-                    print("Joueur 2, vous avez gagner!")
+                    print("Joueur 2, vous avez gagner! ⭐")
+            time.sleep(2)
 
         print("I======I PARTIE TERMINÉE I======I")
         reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))

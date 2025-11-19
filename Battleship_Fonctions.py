@@ -202,7 +202,7 @@ def demande_coordonnee(joueur):
         afficher_grille_tirs_j2()
 
     while True:
-        reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
+        reponse = input(f"{joueur}, Entrez une coordonnée pour\ntirer sur la grille (exemple J,10): ")
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
     # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
         if str and "," in reponse:
@@ -243,21 +243,22 @@ def demande_coordonnee(joueur):
 import time
 import sys
 
-# J'ai colorié une des lignes, j'ai appris les ANSI Escape Codes dans ce lien :
-# https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
-bateau = [
+ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
     ["                                   "],
-    ["           _+_  //  //             "],
-    ["___ ---=//-I_____I_I---I-\\\\=---  "],
+    ["            _+_  //  //            "],
+    ["     ---=//-I_____I_I---I-\\\\=--- "],
     ["\\_°°°°°_°°°°°_____________________/"],
-    ["~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --"]
+    ["~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --"],
 ]
-def dessin_bateau():
-    for ligne in bateau:
+def affichage_ecran_accueil():
+    for ligne in ecran_accueil:
         print(*ligne)
 
-# J'ai appris à faire des textes clignotants en consultant ce site:
+# J'ai colorié une des lignes, j'ai appris les ANSI Escape Codes dans ce lien :
+# https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
+
+# J'ai appris à faire des textes clignotants en consultant ce site :
 # https://handhikayp.medium.com/generate-a-blinking-text-with-very-simple-python-4c10750978f5
 def texte_clignotant(texte,secondes):
     compteur = 0
