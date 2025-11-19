@@ -33,7 +33,6 @@
 
 
 #---------------------------------------- ATTRIBUTION DES VARIABLES ----------------------------------------
-from copy import copy
 #-------------------- 1. Créer le tableau du premier joueur et du deuxième joueur --------------------
 # Quand le joueur 1 tir dans sa grille_tir_j1, les tirs sont marqué sur cette grille et le joueur 2 reçoie les tirs du
 # joueur 1 dans sa grille_bateaux_j2. C'est la même chose si le joueur 2 tir sur le joueur 1.
@@ -92,10 +91,10 @@ grille_tirs_j2 = [
     ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
 ]
 
-gbj1 = copy(grille_bateaux_j1)
-gtj1 = copy(grille_tirs_j1)
-gbj2 = copy(grille_bateaux_j2)
-gtj2 = copy(grille_tirs_j2)
+gbj1 = grille_bateaux_j1.copy()
+gtj1 = grille_tirs_j1.copy()
+gbj2 = grille_bateaux_j2.copy()
+gtj2 = grille_tirs_j2.copy()
 
 #-------------------- 2. Créer les dimensions des cinq différents navires --------------------
 #Nous utiliseront cinq bateaux pour notre jeu Battleship, chacun de ces bateaux sont représentés
@@ -124,9 +123,14 @@ ordre_placement = {
     5 : liste_porte_avion,
 }
 
-# Une variable pour déterminer si la partie est terminée
+# Un boolean pour déterminer si la partie est terminée
 partie_terminer = False
-tour_joueur1 = 1
+
+# Un boolean que si elle est True, c'est le tour du j1.
+# Si le boolean est de type False, c'est le tour du j2.
+tour_joueur1 = True
+
+# Un Int pour voir s'il reste des bateaux dans des grilles.
 compteur_bateaux = 0
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee, afficher_grille_tirs_j2
@@ -136,12 +140,11 @@ from Battleship_Fonctions import placement_bateaux, demande_coordonnee, afficher
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
     while True:
+            # Vidage des grilles pour une nouvelle partie.
         grille_bateaux_j1 = gbj1
         grille_tirs_j1  = gtj1
         grille_bateaux_j2 = gbj2
         grille_tirs_j2 = gtj2
-        print(grille_bateaux_j1)
-        print(gbj1)
 
         print("I====I PHASE DES PLACEMENT  I====I")
         grille_bateaux_j1 = placement_bateaux("Joueur1")
@@ -161,13 +164,14 @@ if __name__ == "__main__":
                         compteur_bateaux += 1
                     else:
                         compteur_bateaux += 0
+            # Vérifie s'il y a des bateaux à l'aide du compteur.
+            # S'il n'y a plus bateaux, la partie est terminée.
                 if compteur_bateaux > 0:
                     tour_joueur1 = False
                     compteur_bateaux = 0
                 elif compteur_bateaux == 0:
                     partie_terminer = True
                     print("Joueur 1, vous avez gagner!")
-
             # Tour du deuxième joueur.
             if tour_joueur1 == False:
                 demande_coordonnee("Joueur2")
@@ -181,12 +185,11 @@ if __name__ == "__main__":
                     else:
                         compteur_bateaux += 0
                 if compteur_bateaux > 0:
-                    tour_joueur1 = False
+                    tour_joueur1 = True
                     compteur_bateaux = 0
                 elif compteur_bateaux == 0:
                     partie_terminer = True
                     print("Joueur 2, vous avez gagner!")
-
 
         print("I======I PARTIE TERMINÉE I======I")
         reponse = str.upper(input(f"Entrez OUI si voulez vous rejouez: "))
@@ -195,35 +198,6 @@ if __name__ == "__main__":
         else:
             break
 
-
-"""
-        while not partie_terminer:
-            if tour_joueur1 == True:
-                for ligne in grille_bateaux_j2:
-                    for cases in ligne:
-                        if ("To" in ligne or
-                            "C1" in ligne or
-                            "C2" in ligne or
-                            "Cu" in ligne or
-                            "PA" in ligne):
-                            demande_coordonnee("Joueur1")
-                            tour_joueur1 = False
-                            partie_terminer = True
-                            print("Joueur 1, vous avez gagner!")
-# S'il n'y a plus de bateaux dans une des grilles, la partie est terminée et le joueur gagne.
-            if tour_joueur1 == False:
-                for ligne in grille_bateaux_j1:
-                    for cases in ligne:
-                        if ("To" in ligne or
-                            "C1" in ligne or
-                            "C2" in ligne or
-                            "Cu" in ligne or
-                            "PA" in ligne):
-                            demande_coordonnee("Joueur2")
-                            tour_joueur1 = True
-                            partie_terminer = True
-                            print("Joueur 2, vous avez gagner!")
-"""
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
@@ -237,6 +211,3 @@ if __name__ == "__main__":
 #TODO: Dans la fonction def placement_bateau :
 #   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague et
 #     se fait effacer.
-#TODO: Dans la fonction def demande_coordonnée :
-#   - Ne s'arrête pas encore lorsque que les bateaux sont tous détruits.
-#TODO: Vider les tableaux de bateaux quand une partie est recommencer.

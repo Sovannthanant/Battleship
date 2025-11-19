@@ -191,6 +191,11 @@ def demande_coordonnee(joueur):
     # J'ai utilisé un dictionnaire, car c'est plus efficace que d'utiliser des fonctions "if" pour chaque lettre.
     lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
 
+    if joueur == "Joueur1":
+        afficher_grille_tirs_j1()
+    elif joueur == "Joueur2":
+        afficher_grille_tirs_j2()
+
     while True:
         reponse = input(f"{joueur}, veuillez entrez une coordonnée pour tirer sur la grille (exemple J,10): ")
     # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
