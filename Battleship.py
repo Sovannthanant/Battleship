@@ -135,13 +135,15 @@ compteur_bateaux = 0
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
 from Battleship_Fonctions import placement_bateaux, demande_coordonnee, affichage_ecran_accueil, texte_clignotant
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
+# Dans le programme principal, j'ai utilisé beaucoup de fonctions liées aux temps pour afficher les messages à
+# un certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur.
 import time
 
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
     while True:
         affichage_ecran_accueil()
-        input("I===I Appuyer Entrée pour Run I===I")
+        input("I=I Appuyer Entrée pour Débuter I=I")
         print("\n"*10)
 
         print("I=====I PHASE DES PLACEMENT I=====I")

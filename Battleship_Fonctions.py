@@ -122,19 +122,26 @@ def placement_bateaux(joueur):
                 elif ligne == 10:
                     message_hors_grille()
             elif reponse == "E":
-                if horizontal:
-                    for i in range(len(bateau)):
-                        grille_bateaux[ligne][colonne +i] = bateau[i]
-    # Une condition if expérimental, pour voir si je peux garder une distance d'un case entre les bateaux.
-                elif (horizontal and
-                      ligne + 1 in ("To","C1","C2","Cu","PA") or
-                      ligne - 1 in ("To","C1","C2","Cu","PA") or
-                      colonne + len(bateau) in ("To","C1","C2","Cu","PA") or
-                      colonne - 1 in ("To","C1","C2","Cu","PA")):
-                    print("Il doit avior une espace de une case entre les bateaux.")
-                elif not horizontal:
-                    for i in range(len(bateau)):
-                        grille_bateaux[ligne +i][colonne] = bateau[i]
+                try:
+                    if (horizontal and
+                        grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
+                        grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
+                        grille_bateaux[ligne +1][colonne +len(bateau) -1] in ("To", "C1", "C2", "Cu", "PA") or
+                        grille_bateaux[ligne -1][colonne +len(bateau) -1] in ("To", "C1", "C2", "Cu", "PA") or
+                        grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
+                        grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
+                            print("Il doit avior une espace de une case entre les bateaux.")
+                            nombre_bateaux -= 1
+        # Une condition if expérimental, pour voir si je peux garder une distance d'un case entre les bateaux.
+                    elif horizontal:
+                        for i in range(len(bateau)):
+                            grille_bateaux[ligne][colonne + i] = bateau[i]
+                    elif not horizontal:
+                        for i in range(len(bateau)):
+                            grille_bateaux[ligne +i][colonne] = bateau[i]
+                except IndexError:
+                    print("Hors d'la liste.")
+                    nombre_bateaux -= 1
                 break
 
     # Pour éviter de répéter afficher_grille_bateaux_j1(j2) après chaque touches, je l'ai mis à la fin.
@@ -247,7 +254,7 @@ ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
     ["                                   "],
     ["            _+_  //  //            "],
-    ["     ---=//-I_____I_I---I-\\\\=--- "],
+    ["     =--=/I-I_____I_I---I-I\\=--= "],
     ["\\_°°°°°_°°°°°_____________________/"],
     ["~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --"],
 ]
@@ -258,7 +265,7 @@ def affichage_ecran_accueil():
 # J'ai colorié une des lignes, j'ai appris les ANSI Escape Codes dans ce lien :
 # https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
 
-# J'ai appris à faire des textes clignotants en consultant ce site :
+# J'ai appris à faire des textes clignotants en consultant ce site, j'ai modifié les params :
 # https://handhikayp.medium.com/generate-a-blinking-text-with-very-simple-python-4c10750978f5
 def texte_clignotant(texte,secondes):
     compteur = 0
