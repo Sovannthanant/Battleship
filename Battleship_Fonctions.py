@@ -46,8 +46,13 @@ def afficher_grille_tirs_j2():
 
 def message_hors_grille():
     """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille, utilisée
-     dans la fonction définie placement_bateaux(joeur)."""
+    dans la fonction définie placement_bateaux(Joueur)."""
     print("LE DÉPLACEMENT VA HORS DE LA GRILLE. ⚠️")
+
+def message_sur_bateau():
+    """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va par dessus un autre bateau, utilisée
+    aussi dans la fonction définie placement_bateaux(Joueur)."""
+    print("LE DÉPLACEMENT VA SUR UN AUTRE BATEAUX. ⚠️")
 
 def placement_bateaux(joueur):
     """Fonction qui permet de choisir où placer des bateaux la grille en utilisant W,A,S,D pour se déplacer, R
@@ -94,21 +99,27 @@ def placement_bateaux(joueur):
 
     # Les touches "W" et "S" permettent des déplacements vertical, donc les bateaux se déplacent sur ligne.
             if reponse == "W":
-                if ligne > 1:
+                if ligne > 1 and grille_bateaux[ligne -1][colonne] not in ("To","C1","C2","Cu","PA"):
                     ligne -= 1
                 elif ligne == 1:
                     message_hors_grille()
+                elif grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA"):
+                    message_sur_bateau()
             elif reponse == "S":
-                if ligne <10:
+                if ligne <10 and grille_bateaux[ligne +1][colonne] not in ("To","C1","C2","Cu","PA"):
                     ligne += 1
                 elif ligne == 10 and (not horizontal + len(bateau) <10):
                     message_hors_grille()
+                elif grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA"):
+                    message_sur_bateau()
     # Les touches "A" et "D" permettent des déplacements horizontal, les bateaux se déplacent sur colonne.
             elif reponse == "A":
-                if colonne > 1:
+                if colonne > 1 and grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA"):
                     colonne -= 1
                 elif colonne == 1:
                     message_hors_grille()
+                elif grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA"):
+                    message_sur_bateau()
     # Si colonne + len(bateau) -1 < 10 OU colonne <10 et pas horizontal (peut maintenant aller à droite de la grille).
             elif reponse == "D":
                 if colonne + len(bateau) -1 < 10 or (colonne < 10 and not horizontal):
@@ -126,11 +137,9 @@ def placement_bateaux(joueur):
                     if (horizontal and
                         grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
                         grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
-                        grille_bateaux[ligne +1][colonne +len(bateau) -1] in ("To", "C1", "C2", "Cu", "PA") or
-                        grille_bateaux[ligne -1][colonne +len(bateau) -1] in ("To", "C1", "C2", "Cu", "PA") or
                         grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
                         grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
-                            print("Il doit avior une espace de une case entre les bateaux.")
+                            print("Il doit avoir une espace de une case entre les bateaux.")
                             nombre_bateaux -= 1
         # Une condition if expérimental, pour voir si je peux garder une distance d'un case entre les bateaux.
                     elif horizontal:
@@ -262,7 +271,7 @@ def affichage_ecran_accueil():
     for ligne in ecran_accueil:
         print(*ligne)
 
-# J'ai colorié une des lignes, j'ai appris les ANSI Escape Codes dans ce lien :
+# J'ai appris les ANSI Escape Codes dans ce lien. Je l'ai enlevé des fichiers :
 # https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
 
 # J'ai appris à faire des textes clignotants en consultant ce site, j'ai modifié les params :
