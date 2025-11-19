@@ -1,4 +1,5 @@
 
+
 #---------------------------------------- FONCTIONS DU BATTLESHIP ----------------------------------------🚢⚙
 # En commençant à faire des importations entre les deux fichiers, je suis tombé sur un problème qui arrêtait le
 # programme appelé "circular imports". Les importations se fessaient toutes en même temps et ne se comprenaient pas.
@@ -75,17 +76,14 @@ def placement_bateaux(joueur):
     # Pour i in range (longueur des valeurs des clés dans ordre_placement (ex. 5 : ["PA","PA","PA","PA","PA")).
         for i in range(len(bateau)):
             grille_bateaux[ligne][colonne +i] = bateau[i]
-        if joueur == "Joueur1":
-            afficher_grille_bateaux_j1()
-        elif joueur == "Joueur2":
-            afficher_grille_bateaux_j2()
 
         while True:
+    # Avant de demander au joueur de placer les bateaux, la grille est affiché pour faciliter la tâche.
             if joueur == "Joueur1":
                 afficher_grille_bateaux_j1()
             elif joueur == "Joueur2":
                 afficher_grille_bateaux_j2()
-            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer, R pour tourner et E pour placer: "))
+            reponse = str.upper(input("Appuyer W,A,S,D pour déplacer, R\npour tourner et E pour placer: "))
     # Avant le déplacement du bateau, les cases bateau sont effacées pour éviter d'avoir une copie du bateau.
             if horizontal:
                 for i in range(len(bateau)):
@@ -127,6 +125,13 @@ def placement_bateaux(joueur):
                 if horizontal:
                     for i in range(len(bateau)):
                         grille_bateaux[ligne][colonne +i] = bateau[i]
+    # Une condition if expérimental, pour voir si je peux garder une distance d'un case entre les bateaux.
+                elif (horizontal and
+                      ligne + 1 in ("To","C1","C2","Cu","PA") or
+                      ligne - 1 in ("To","C1","C2","Cu","PA") or
+                      colonne + len(bateau) in ("To","C1","C2","Cu","PA") or
+                      colonne - 1 in ("To","C1","C2","Cu","PA")):
+                    print("Il doit avior une espace de une case entre les bateaux.")
                 elif not horizontal:
                     for i in range(len(bateau)):
                         grille_bateaux[ligne +i][colonne] = bateau[i]
@@ -232,3 +237,35 @@ def demande_coordonnee(joueur):
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
+
+
+#-------------------- +. Fonctions décoratives, pas nécessaire au fonctionnement.  --------------------
+import time
+import sys
+
+# J'ai colorié une des lignes, j'ai appris les ANSI Escape Codes dans ce lien :
+# https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
+bateau = [
+    ["I=======I JEU BATTLESHIP  I=======I"],
+    ["                                   "],
+    ["           _+_  //  //             "],
+    ["___ ---=//-I_____I_I---I-\\\\=---  "],
+    ["\\_°°°°°_°°°°°_____________________/"],
+    ["~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --"]
+]
+def dessin_bateau():
+    for ligne in bateau:
+        print(*ligne)
+
+# J'ai appris à faire des textes clignotants en consultant ce site:
+# https://handhikayp.medium.com/generate-a-blinking-text-with-very-simple-python-4c10750978f5
+def texte_clignotant(texte,secondes):
+    compteur = 0
+    while compteur <= secondes:
+        sys.stdout.write(texte)
+        sys.stdout.flush()
+        time.sleep(0.5)
+        sys.stdout.write('\r' + ' ' * len(texte)+'\r')
+        sys.stdout.flush()
+        time.sleep(0.5)
+        compteur += 1

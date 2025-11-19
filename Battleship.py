@@ -133,21 +133,30 @@ tour_joueur1 = True
 # Un Int pour voir s'il reste des bateaux dans des grilles.
 compteur_bateaux = 0
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
-from Battleship_Fonctions import placement_bateaux, demande_coordonnee, afficher_grille_tirs_j2
-
+from Battleship_Fonctions import placement_bateaux, demande_coordonnee, dessin_bateau, texte_clignotant
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
+import time
 
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
     while True:
-            # Vidage des grilles pour une nouvelle partie.
-        grille_bateaux_j1 = gbj1
-        grille_tirs_j1  = gtj1
-        grille_bateaux_j2 = gbj2
-        grille_tirs_j2 = gtj2
+        # J'ai print le dessin en utilisant \n à la place d'une grille et d'un fonc.
+        print("I=======I JEU BATTLESHIP  I=======I")
+        print("                                   \n"
+              "           _+_  //  //             \n"
+              "___ ---=//-I_____I_I---I-\\\\=---  \n"
+              "\\_°°°°°_°°°°°_____________________/\n"
+              "~~ ~~ ~~ ~~ ~~ -- -- -- -- -- -- --")
+        input("I===I Appuyer Entrée pour Run I===I")
+        print("\n"*10)
 
-        print("I====I PHASE DES PLACEMENT  I====I")
+        print("I=====I PHASE DES PLACEMENT I=====I")
+        print("Les joueurs vont placer les bateaux\nLes contrôles sont W,A,S,D,R et E.")
+        texte_clignotant("...CHARGEMENT GRILLE BATEAU J1...",3)
+        print("\n" * 10)
         grille_bateaux_j1 = placement_bateaux("Joueur1")
+        texte_clignotant("...CHARGEMENT GRILLE BATEAU J2...", 3)
+        print("\n" * 10)
         grille_bateaux_j2 = placement_bateaux("Joueur2")
 
         print("I=======I PHASE DES TIRS I=======I")
