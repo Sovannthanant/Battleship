@@ -38,7 +38,7 @@ Elles impriment des listes sous forme de grille pour faire des tableaux.
 | 2             | Redemande la question                | Redemande la question        | Bon        |
 | =             | Redemande la question                | Redemande la question        | Bon        |
 Le déplacement d'un bateau sur un autre, efface celui qui est en dessous.
-Les bateaux peut toujours allez en dessous de la grille quand not horizontal.
+Les bateaux peuvent toujours aller en dessous de la grille quand not horizontal.
 
 ## 3.---------- Fonctions de tirs ----------
 ### placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
