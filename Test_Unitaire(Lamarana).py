@@ -67,7 +67,7 @@ def test_afficher_grille_tirs_j1(capsys):
     afficher_grille_tirs_j1()
     captured = capsys.readouterr()                     #capsys.readouterr() capture tout ce qu’une fonction a affiché avec print()
 
-                                                       # afin de pouvoir le tester avec pytest, même si la fonction ne retourne rien.
+                                                       #afin de pouvoir le tester avec pytest, même si la fonction ne retourne rien.
     resultat = captured.out                            #https://docs.pytest.org/en/stable/how-to/capture-stdout-stderr.html
 
     sortie_attendue = (
