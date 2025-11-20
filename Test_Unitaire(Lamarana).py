@@ -71,11 +71,12 @@ def test_afficher_grille_tirs_j1():
         ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ]
 
-    sortie_attendue = _formater_grille(Battleship.grille_tirs_j1)
+    sortie_attendue = _formater_grille(Battleship.grille_tirs_j1)   #on prepare la sortie atendu( notre objet)
 
-    resultat = afficher_grille_tirs_j1()
+    resultat = afficher_grille_tirs_j1()       # appel de la fonction que l'on veut tester
 
-    assert resultat == sortie_attendue
+
+    assert resultat == sortie_attendue         #vérifie si la valeur retourné par la fonction est exacte
 
 
 # -------------------- Test 3 : afficher_grille_bateaux_j2 --------------------
@@ -95,12 +96,17 @@ def test_afficher_grille_bateaux_j2():
         ["10","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ]
 
+    objet=_formater_grille(Battleship.grille_bateaux_j2)
+    resultat=afficher_grille_bateaux_j2()
+    assert objet==resultat
+
+"""
     sortie_attendue = _formater_grille(Battleship.grille_bateaux_j2)
 
     resultat = afficher_grille_bateaux_j2()
 
     assert resultat == sortie_attendue
-
+"""
 
 # -------------------- Test 4 : afficher_grille_tirs_j2 --------------------
 #FONCTION QUI VA ME SERVIR DE DEMO
@@ -134,8 +140,8 @@ def test_message_hors_grille():
 
 
 # -------------------- Tests de placement_tirs --------------------
-
-@pytest.mark.parametrize("etat_initial, message_attendu, marqueur_attendu", [
+#Testons plusieurs cas avec la fonction  avec la fonction (test_placement_tirs)
+@pytest.mark.parametrize("etat_initial, message_attendu, marqueur_attendu", [                           #/organisation/la clé du programme /
     ("~~", "TIR MANQUÉ", "}{"),
     ("To", "TIR TOUCHÉ", "()"),
     ("C1", "TIR TOUCHÉ", "()"),
@@ -144,8 +150,9 @@ def test_message_hors_grille():
     ("PA", "TIR TOUCHÉ", "()"),
 ])
 def test_placement_tirs(etat_initial, message_attendu, marqueur_attendu):
+     #Initialisation
 
-    grille_tirs = [["~", "~"], ["~", "~~"]]
+    grille_tirs = [["~", "~"], ["~", "~~"]] #on créer deux grilles minimales ici (2*2)
     grille_bateaux = [["~", "~"], ["~", etat_initial]]
 
     resultat = Battleship_Fonctions.placement_tirs(
