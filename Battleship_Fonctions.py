@@ -111,7 +111,7 @@ def placement_bateaux(joueur):
                 if ligne <10 and (grille_bateaux[ligne +1][colonne] not in ("To","C1","C2","Cu","PA") and
                     grille_bateaux[ligne +1][colonne + len(bateau) -1] not in ("To","C1","C2","Cu","PA")):
                     ligne += 1
-                elif ligne == 10 and (not horizontal +len(bateau) <10):
+                elif ligne == 10 or (not horizontal +len(bateau) == 10):
                     message_hors_grille()
                 elif (grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
                      grille_bateaux[ligne +1][colonne + len(bateau) -1] in ("To","C1","C2","Cu","PA")):
@@ -143,7 +143,8 @@ def placement_bateaux(joueur):
             elif reponse == "E":
                 if horizontal:
                     try:
-                        if (grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
+                        if (horizontal and
+                        grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
                         grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
                         grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
                         grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
@@ -155,7 +156,7 @@ def placement_bateaux(joueur):
                     except IndexError:
                         for i in range(len(bateau)):
                             grille_bateaux[ligne][colonne + i] = bateau[i]
-
+                    break
     # Pour éviter de répéter afficher_grille_bateaux_j1(j2) après chaque touches, je l'ai mis à la fin.
             if horizontal:
                 for i in range(len(bateau)):
@@ -263,6 +264,7 @@ def demande_coordonnee(joueur):
 import time
 import sys
 
+# Une fonction qui sert litéralement à juste afficher un dessin text.
 ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
     ["                                   "],
