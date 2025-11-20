@@ -100,9 +100,8 @@ def placement_bateaux(joueur):
 
     # Les touches "W" et "S" permettent des déplacements vertical, donc les bateaux se déplacent sur ligne.
             if reponse == "W":
-                if ((horizontal and ligne > 1 and grille_bateaux[ligne -1][colonne] not in ("To","C1","C2","Cu","PA")) and
-                    # Condition pour voir si le bout du bateau est collé sur celle d'un autre bateau.
-                    (horizontal and ligne > 1 and grille_bateaux[ligne -1][colonne + len(bateau) -1] not in ("To","C1","C2","Cu","PA"))):
+                if ((horizontal and ligne > 1 and grille_bateaux[ligne -1][colonne] not in ("To","C1","C2","Cu","PA")) or
+                    (not horizontal and ligne >1 and grille_bateaux[ligne -1][colonne] not in ("To","C1","C2","Cu","PA"))):
                     ligne -= 1
                 elif ligne == 1:
                     message_hors_grille()
@@ -122,7 +121,8 @@ def placement_bateaux(joueur):
 
     # Les touches "A" et "D" permettent des déplacements horizontal, les bateaux se déplacent sur colonne.
             elif reponse == "A":
-                if ((horizontal and colonne > 1 and grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA"))):
+                if ((horizontal and colonne > 1 and grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA")) or
+                    (not horizontal and colonne >1 and grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA"))):
                     colonne -= 1
                 elif colonne == 1:
                     message_hors_grille()
@@ -130,8 +130,8 @@ def placement_bateaux(joueur):
                     message_sur_bateau()
     # Si colonne + len(bateau) -1 < 10 OU colonne <10 et pas horizontal (peut maintenant aller à droite de la grille).
             elif reponse == "D":
-                if ((colonne + len(bateau) -1 < 10 and grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA")) or
-                    (not horizontal and colonne < 10)):
+                if (( horizontal and colonne + len(bateau) -1 < 10 and grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA")) or
+                    (not horizontal and colonne < 10 and grille_bateaux[ligne][colonne +1] not in ("To","C1","C2","Cu","PA"))):
                     colonne += 1
                 elif colonne +len(bateau) -1 == 10:
                     message_hors_grille()
@@ -147,16 +147,17 @@ def placement_bateaux(joueur):
             elif reponse == "E":
                 if horizontal:
                     if (horizontal and
-                    # En bas
-                    grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
-                    # En haut
-                    grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
-                    # À droite
-                    grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
-                    # À gauche
-                    grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
-                        print("Il doit avoir une espace de une case entre les bateaux.")
-                        nombre_bateaux -= 1
+                        # En bas
+                        grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
+                        # En haut
+                        grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
+                        # À droite
+                        grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
+                        # À gauche
+                        grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
+                            print("Il doit avoir une espace de une case entre les bateaux.")
+                            nombre_bateaux -= 1
+
                     elif horizontal:
                         for i in range(len(bateau)):
                             grille_bateaux[ligne][colonne + i] = bateau[i]
@@ -268,6 +269,9 @@ def demande_coordonnee(joueur):
 import time
 import sys
 
+# J'ai appris les ANSI Escape Codes dans ce lien. Je l'ai enlevé des fichiers :
+# https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
+
 # Une fonction qui sert litéralement à juste afficher un dessin text.
 ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
@@ -275,17 +279,16 @@ ecran_accueil = [
     ["            -+- //   //            "],
     ["_____ ---=/I-I---I---I---I-I\\=--- "],
     ["\\_°____________________________---/"],
-    ["~ ~~ ~~~ ~~~~ ----- ------ ------- "],
+    ["\033[34m~ ~~ ~~~ ~~~~ ----- ------ ------- \033[0m"],
 ]
 def affichage_ecran_accueil():
     for ligne in ecran_accueil:
         print(*ligne)
 
-# J'ai appris les ANSI Escape Codes dans ce lien. Je l'ai enlevé des fichiers :
-# https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
-
 # J'ai appris à faire des textes clignotants en consultant ce site, j'ai modifié les params :
 # https://handhikayp.medium.com/generate-a-blinking-text-with-very-simple-python-4c10750978f5
+
+# Fonction qui permet d'afficher des textes clignotant pendant des secondes.
 def texte_clignotant(texte,secondes):
     compteur = 0
     while compteur <= secondes:
