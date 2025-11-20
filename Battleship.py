@@ -39,12 +39,12 @@
 #   - Les grille_bateaux et grille_tir des deux joueurs sont, les quatre, des listes à 2 dimensions.
 
 grille_bateaux_j1 = [
-    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],  # Les colonnes sont de 10 éléments, mais j'en ai
-    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],  # ajouté 1 pour éviter des problèmes de IndexError.
-    ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],  # C'était plus compliqué de mettre try et except
-    ["03","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],  # plusieurs fois. À la place, j'ai changé la grille.
+    ["  "," A"," B"," C"," D"," E"," F"," G"," H"," I"," J"],  # Les colonnes sont de 10 éléments.
+    ["01","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],  # Les lignes sont de 10 éléments.
+    ["02","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
+    ["03","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["04","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
-    ["05","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],  # Les lignes sont  de 10 éléments.
+    ["05","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["06","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["07","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
     ["08","~~","~~","~~","~~","~~","~~","~~","~~","~~","~~"],
@@ -133,11 +133,16 @@ compteur_bateaux = 0
 
 
 #---------------------------------------- LE PROGRAMME PRINCIPAL ----------------------------------------
-from Battleship_Fonctions import placement_bateaux, demande_coordonnee, affichage_ecran_accueil, texte_clignotant
+from Battleship_Fonctions import(
+                                placement_bateaux,
+                                demande_coordonnee,
+                                affichage_ecran_accueil,
+                                texte_clignotant)
+import time # Module utilisé pour faire clignoter les textes.
+
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
 # Dans le programme principal, j'ai utilisé beaucoup de fonctions liées aux temps pour afficher les messages à
 # un certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur. - VANN SOVANNTHANANT
-import time
 
 if __name__ == "__main__":
 # La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
@@ -181,6 +186,7 @@ if __name__ == "__main__":
                 if compteur_bateaux > 0:
                     tour_joueur1 = False
                     compteur_bateaux = 0
+                    print("\n"*2)
                 elif compteur_bateaux == 0:
                     partie_terminer = True
                     print("Joueur 1, vous avez gagner! ⭐")
@@ -200,6 +206,7 @@ if __name__ == "__main__":
                 if compteur_bateaux > 0:
                     tour_joueur1 = True
                     compteur_bateaux = 0
+                    print("\n" * 2)
                 elif compteur_bateaux == 0:
                     partie_terminer = True
                     print("Joueur 2, vous avez gagner! ⭐")
