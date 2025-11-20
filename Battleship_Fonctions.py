@@ -81,6 +81,7 @@ def placement_bateaux(joueur):
         for i in range(len(bateau)):
             grille_bateaux[ligne][colonne +i] = bateau[i]
 
+
     # Avant de demander au joueur de placer les bateaux, la grille est affiché pour faciliter la tâche.
         while True:
             if joueur == "Joueur1":
@@ -101,46 +102,40 @@ def placement_bateaux(joueur):
             if reponse == "W":
                 if ((horizontal and ligne > 1 and grille_bateaux[ligne -1][colonne] not in ("To","C1","C2","Cu","PA")) and
                     # Condition pour voir si le bout du bateau est collé sur celle d'un autre bateau.
-                    (horizontal and grille_bateaux[ligne -1][colonne + len(bateau) -1] not in ("To","C1","C2","Cu","PA"))
-                    ):
+                    (horizontal and ligne > 1 and grille_bateaux[ligne -1][colonne + len(bateau) -1] not in ("To","C1","C2","Cu","PA"))):
                     ligne -= 1
                 elif ligne == 1:
                     message_hors_grille()
                 elif ((horizontal and grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA")) or
-                      (horizontal and grille_bateaux[ligne -1][colonne + len(bateau) -1] in ("To","C1","C2","Cu","PA"))
-                      ):
+                      (horizontal and grille_bateaux[ligne -1][colonne + len(bateau) -1] in ("To","C1","C2","Cu","PA"))):
                     message_sur_bateau()
             elif reponse == "S":
                 if ((horizontal and ligne <10 and grille_bateaux[ligne +1][colonne] not in ("To","C1","C2","Cu","PA")) or
-                    (not horizontal and ligne +len(bateau) -1 <10 and grille_bateaux[ligne + len(bateau)][colonne] not in ("To","C1","C2","Cu","PA"))
-                    ):
+                    (not horizontal and ligne +len(bateau) -1 <10 and grille_bateaux[ligne + len(bateau)][colonne] not in ("To","C1","C2","Cu","PA"))):
                     ligne += 1
-                elif ((ligne == 10 and horizontal) or
-                     (not horizontal and ligne +len(bateau) -1)
-                     ):
+                elif ((horizontal and ligne == 10) or
+                     (not horizontal and ligne +len(bateau) -1)):
                     message_hors_grille()
                 elif ((grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA")) or
-                      (grille_bateaux[ligne +1][colonne + len(bateau) -1] in ("To","C1","C2","Cu","PA"))
-                       ):
+                      (grille_bateaux[ligne +1][colonne + len(bateau) -1] in ("To","C1","C2","Cu","PA"))):
                     message_sur_bateau()
 
     # Les touches "A" et "D" permettent des déplacements horizontal, les bateaux se déplacent sur colonne.
             elif reponse == "A":
-                if colonne > 1 and (grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA")):
+                if ((horizontal and colonne > 1 and grille_bateaux[ligne][colonne -1] not in ("To","C1","C2","Cu","PA"))):
                     colonne -= 1
                 elif colonne == 1:
                     message_hors_grille()
-                elif grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA"):
+                elif (horizontal and grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
                     message_sur_bateau()
     # Si colonne + len(bateau) -1 < 10 OU colonne <10 et pas horizontal (peut maintenant aller à droite de la grille).
             elif reponse == "D":
-                if (colonne + len(bateau) -1 < 10 and
-                    grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA") or
-                    (colonne < 10 and not horizontal)):
+                if ((colonne + len(bateau) -1 < 10 and grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA")) or
+                    (not horizontal and colonne < 10)):
                     colonne += 1
                 elif colonne +len(bateau) -1 == 10:
                     message_hors_grille()
-                elif grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA"):
+                elif (horizontal and grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA")):
                     message_sur_bateau()
     # La touche "R" alterne entre horizontal et not horizontal, et "E" sert à conclure le placement.
 
@@ -152,9 +147,13 @@ def placement_bateaux(joueur):
             elif reponse == "E":
                 if horizontal:
                     if (horizontal and
+                    # En bas
                     grille_bateaux[ligne +1][colonne] in ("To","C1","C2","Cu","PA") or
+                    # En haut
                     grille_bateaux[ligne -1][colonne] in ("To","C1","C2","Cu","PA") or
+                    # À droite
                     grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA") or
+                    # À gauche
                     grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")):
                         print("Il doit avoir une espace de une case entre les bateaux.")
                         nombre_bateaux -= 1
@@ -174,10 +173,10 @@ def placement_bateaux(joueur):
                     message_hors_grille()
 
     # Je retourne les grilles une fois que les bateaux sont tous placés.
-            if joueur == "Joueur1" and nombre_bateaux == 5:
-                return grille_bateaux
-            elif joueur == "Joueur2" and nombre_bateaux == 5:
-                return grille_bateaux
+        if joueur == "Joueur1" and nombre_bateaux == 5:
+            return grille_bateaux
+        elif joueur == "Joueur2" and nombre_bateaux == 5:
+            return grille_bateaux
 
 #-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
 # Les grille_bateaux_j1, grille_bateaux_j2, grille_tirs_j1 et grille_tirs_j2 sont importées pour pouvoir marquer les
