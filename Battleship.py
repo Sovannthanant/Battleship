@@ -120,7 +120,6 @@ ordre_placement = {
     4 : liste_cuirasse,
     5 : liste_porte_avion,
 }
-
 # Un boolean pour déterminer si la partie est terminée
 partie_terminer = False
 
@@ -138,21 +137,22 @@ from Battleship_Fonctions import(
                                 demande_coordonnee,
                                 affichage_ecran_accueil,
                                 texte_clignotant)
-import time # Module utilisé pour faire clignoter les textes.
+# Le module "time" est utilisé faire clignoter les textes.
+import time
 
 #-------------------- 5. Quand la partie est terminé, un message de victoire est affiché. --------------------
-# Dans le programme principal, j'ai utilisé beaucoup de fonctions liées aux temps pour afficher les messages à
-# un certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur. - VANN SOVANNTHANANT
+# Dans le programme principal, j'ai utilisé beaucoup de fonctions liées aux temps pour afficher les messages à un
+# certain intervalle de temps pour faciliter la lecture du programme par l'utilisateur. - VANN SOVANNTHANANT.
 
 if __name__ == "__main__":
-# La boucle est utilisée pour répéter la partie si les joueurs veulent rejouer.
+# Une boucle utilisée pour faire répéter la partie.
     while True:
-        # L'écran d'acceuil.
+        # L'affichage de l'écran d'acceuil.
         affichage_ecran_accueil()
         input("I=I Appuyer Entrée pour Débuter I=I")
         print("\n"*10)
 
-        # Les placements de bateaux.
+        # Les fonctions placements des bateaux.
         print("I=====I PHASE DES PLACEMENT I=====I")
         print("Les joueurs vont placer les bateaux.\nLes contrôles sont W,A,S,D,R et E.")
         texte_clignotant("...CHARGEMENT GRILLE_BATEAUX_J1...",4)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
         grille_bateaux_j2 = placement_bateaux("Joueur2")
         print("\n" * 10)
 
-        # Les placements de tirs.
+        # Les fonctions placements des tirs.
         print("I=======I PHASE DES TIRS I=======I")
         print("Les joueurs vont essayer de tirer\nsur les bateaux ennemis en entrant\ndes coordonnées. (exemple: A,5).")
         texte_clignotant("...CHARGEMENT GRILLE_TIRS(J1,J2)...", 5)
@@ -220,6 +220,15 @@ if __name__ == "__main__":
         else:
             break
 
+
+#-------------------- +. Notes supplémentaires en lien avec le programme Battleship --------------------
+
+#ERREUR REMARQUER, MAIS PAS EU LE TEMPS DE RÉPARER.
+#TODO: Dans la fonction def placement_bateau :
+#   - Quand un bateau passe sur un autre, les cases de l'ancien devient une vague.
+#   - Tourner quand le bateau est en bas et le fait dépasser hors de la grille.
+#   - Les déplacement vers le bas "s" dépasse la grille quand not horizontal.
+
 #==================== NOTES IMPORTANTES DE L'ENSEIGNANTE ==================== ⚠️⚠️⚠️
 #   - ✅ Plus de Commentaires tout au long du programme.
 #   - ✅ Des Documentations pour les fonctions qui ne sont pas expliquées (fonctions def).
@@ -228,10 +237,3 @@ if __name__ == "__main__":
 #   - ✅ Commencer à déplacer certaines fonctions dans un fichier pour les utiliser comme modules, hors du principal.
 #   - ✅ Il faut avancer plus vite, il reste beaucoup de travails à faire encore.
 #   - Prévoir et faire des plans de test sous forme de tableau, les fichiers de types .md avec l'utilisation de Pytest.
-
-#ERREUR REMARQUER
-#TODO: Dans la fonction def placement_bateau :
-#   - Quand un bateau passe au dessus un autre bateau, les cases de l'ancien bateau se fait remplacer par une vague et
-#     se fait effacer quand en not horizontal.
-#TODO: Les bateaux ne doivent pas être coller lors du placement (les bordures ont des problèmes).
-#TODO: Les déplacement vers le bas dépasse la grille quand not horizontal.

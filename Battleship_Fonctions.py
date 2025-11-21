@@ -42,7 +42,7 @@ def afficher_grille_tirs_j2():
 
 #-------------------- 3. Faire Demander aux joueurs de placer leurs bateaux --------------------
 # L'importation de grille_bateaux_j1 et de grille_bateaux_j2 permettent leur modification pour contenir les bateaux et
-# l'importation de l'ordre de placement permet de placer en ordre: torpilleur > 2 croiseurs > cuirasse > porte-avion.
+# l'importation de l'ordre de placement permet de placer en ordre : torpilleur > 2 croiseurs > cuirasse > porte-avion.
 
 def message_hors_grille():
     """Une petite fonction qui sert à afficher un message lorsqu'un déplacement va à l'extérieur de la grille, utilisée
@@ -72,36 +72,34 @@ def placement_bateaux(joueur):
         grille_bateaux = grille_bateaux_j1
     elif joueur == "Joueur2":
         grille_bateaux = grille_bateaux_j2
-
+    # Pour la fonction ".get", je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
+    # Les bateaux commencent au centre de la grille, à la coordonnée E5 et le nombre_bateaux augmente jusqu'à 5.
+    # Pour i in range (longueur des valeurs des clés dans ordre_placement (ex. 5 : ["PA","PA","PA","PA","PA")).
     nombre_bateaux = 0
     while nombre_bateaux < 5:
         nombre_bateaux += 1
         horizontal = True
-    # Pour la fonction ".get", je me suis inspiré de cette vidéo : https://www.youtube.com/watch?v=MZZSMaEAC2g
-    # Les bateaux commencent au centre de la grille, à la coordonnée E5 et le nombre_bateaux augmente jusqu'à 5.
         bateau = ordre_placement.get(nombre_bateaux)
         ligne = 5
         colonne = 5
-    # Pour i in range (longueur des valeurs des clés dans ordre_placement (ex. 5 : ["PA","PA","PA","PA","PA")).
         for i in range(len(bateau)):
             grille_bateaux[ligne][colonne +i] = bateau[i]
 
-
-    # Avant de demander au joueur de placer les bateaux, la grille est affiché pour faciliter la tâche.
+    # Avant de demander au joueur de placer les bateaux, les grilles sont affichées pour faciliter la tâche.
         while True:
             if joueur == "Joueur1":
                 afficher_grille_bateaux_j1()
             elif joueur == "Joueur2":
                 afficher_grille_bateaux_j2()
             reponse = str.upper(input("Appuyer W,A,S,D pour déplacer, R\npour tourner et E pour placer: "))
-
-    # Avant le déplacement du bateau, les cases bateau sont effacées pour éviter d'avoir une copie du bateau.
+    # Avant le déplacement du bateau les cases bateau sont effacées pour éviter d'avoir une copie du bateau.
             if horizontal:
                 for i in range(len(bateau)):
                     grille_bateaux[ligne][colonne +i] = "~~"
             elif not horizontal:
                 for i in range(len(bateau)):
                     grille_bateaux[ligne +i][colonne] = "~~"
+
 
     # Les touches "W" et "S" permettent des déplacements vertical, donc les bateaux se déplacent sur ligne.
             if reponse == "W":
@@ -133,7 +131,6 @@ def placement_bateaux(joueur):
                 elif ((horizontal and grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA")) or
                       (not horizontal and colonne >1 and grille_bateaux[ligne][colonne -1] in ("To","C1","C2","Cu","PA"))):
                     message_sur_bateau()
-    # Si colonne + len(bateau) -1 < 10 OU colonne <10 et pas horizontal (peut maintenant aller à droite de la grille).
             elif reponse == "D":
                 if (( horizontal and colonne + len(bateau) -1 < 10 and grille_bateaux[ligne][colonne +len(bateau)] not in ("To","C1","C2","Cu","PA")) or
                     (not horizontal and colonne < 10 and grille_bateaux[ligne][colonne +1] not in ("To","C1","C2","Cu","PA"))):
@@ -143,8 +140,8 @@ def placement_bateaux(joueur):
                 elif ((horizontal and grille_bateaux[ligne][colonne +len(bateau)] in ("To","C1","C2","Cu","PA")) or
                      (not horizontal and colonne < 10 and grille_bateaux[ligne][colonne +1] not in ("To","C1","C2","Cu","PA"))):
                     message_sur_bateau()
-    # La touche "R" alterne entre horizontal et not horizontal, et "E" sert à conclure le placement.
 
+    # La touche "R" alterne entre horizontal et not horizontal, et "E" sert à conclure le placement.
             if reponse == "R":
                 if ligne < 10:
                     horizontal = not horizontal
@@ -161,6 +158,7 @@ def placement_bateaux(joueur):
                     except IndexError:
                         message_hors_grille()
                 break
+
     # Pour éviter de répéter afficher_grille_bateaux_j1(j2) après chaque touches, je l'ai mis à la fin.
             if horizontal:
                 for i in range(len(bateau)):
@@ -171,16 +169,22 @@ def placement_bateaux(joueur):
                         grille_bateaux[ligne +i][colonne] = bateau[i]
                 except IndexError:
                     message_hors_grille()
-
-    # Je retourne les grilles une fois que les bateaux sont tous placés.
+    # Je retourne les grilles_bateaux pour le programme principal une fois que les bateaux sont tous placés.
         if joueur == "Joueur1" and nombre_bateaux == 5:
             return grille_bateaux
         elif joueur == "Joueur2" and nombre_bateaux == 5:
             return grille_bateaux
 
+
 #-------------------- 4. Commencer la partie, demander aux joueurs entrer une coordonnée --------------------
 # Les grille_bateaux_j1, grille_bateaux_j2, grille_tirs_j1 et grille_tirs_j2 sont importées pour pouvoir marquer les
 # marque de tirs touchés et tirs nuls.
+
+def message_tirs_sur_tirs():
+    """petite fonction pour pouvoir modifier la réponse quand un tir et tirer sur un tir (évite de modifier 12x)."""
+    message = "VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER. ⚠️"
+    print(message)
+    return message
 
 def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
     """Petite Fonction fonctionnant avec la fonction tirs_sur_grilles, évite de répéter le remplissage de cases."""
@@ -197,9 +201,6 @@ def placement_tirs(grille_tirs, grille_bateaux, colonne, ligne):
         grille_bateaux[ligne][colonne] = "()"
         print("TIR TOUCHÉ 💥")
 
-def message_tirs_sur_tirs():
-    """petite fonction pour pouvoir modifier la réponse quand un tir et tirer sur un tir (évite de modifier 12x)."""
-    print("VOUS AVEZ DÉJÀ TIRER ICI, RÉESSAYER. ⚠️")
 
 def demande_coordonnee(joueur):
     """Fonction qui permet de tirer sur la grille de tirs des joueurs, en entrant une coordonnée (exemple J,10).
@@ -212,25 +213,22 @@ def demande_coordonnee(joueur):
         grille_tirs = grille_tirs_j1
     elif joueur == "Joueur2":
         grille_tirs = grille_tirs_j2
-    # J'ai inversé ici, parce qu'un tir dans grille_tirs doit apparaitre dans la grille_bateaux opposée adverse.
+    # Lorsque Joueur 1 tir dans sa grille_tirs, Joueur 2 reçoit son tir dans grille_bateaux.
     if joueur == "Joueur1":
         grille_bateaux = grille_bateaux_j2
     elif joueur == "Joueur2":
         grille_bateaux = grille_bateaux_j1
-
-    # J'ai utilisé un dictionnaire, car c'est plus efficace que d'utiliser des fonctions "if" pour chaque lettre.
-    lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
-
-    # Affichage des grilles de tirs pour que les joueurs puissnr voir ou ils tirent.
+    # Des Affichages des grilles_tirs pour que les deux joueurs puisent voir où ils tirent.
     if joueur == "Joueur1":
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
         afficher_grille_tirs_j2()
 
+    # Dictionnaire qui contient les lettres A à J comme clés et des chiffres comme valeurs.
+    lettre_colonne = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8, "I": 9, "J": 10}
+
     while True:
         reponse = input(f"{joueur}, Entrez une coordonnée pour\ntirer sur la grille (exemple J,10): ")
-    # La réponse du joueur est séparée pour identifier la ligne et la colonne du tir. J'ai trouvé ".split" ici :
-    # https://www.w3schools.com/python/ref_string_split.asp La coordonnée est une liste à deux éléments.
         if str and "," in reponse:
             coordonnee = reponse.split(",")
             try:
@@ -240,7 +238,7 @@ def demande_coordonnee(joueur):
                     colonne = str.upper(coordonnee[0])
                     if colonne in lettre_colonne.keys():
                         colonne = int(lettre_colonne[colonne])
-                        # Si le tir a été placé sur une cse de tir "}{" ou "()":
+                        # Si le tir a été placé sur une case de tir "}{" ou "()":
                         #   - Affichez un message d'erreur et redemander la coordonnée.
                         if (grille_bateaux[ligne][colonne] == "}{" or
                             grille_bateaux[ligne][colonne] == "()"):
@@ -248,7 +246,8 @@ def demande_coordonnee(joueur):
                         else:
                             placement_tirs(grille_tirs, grille_bateaux, colonne, ligne)
                             break
-    # Des messages pour signaler au joueur comment écrire une bonne coordonnée, couvre toutes les erreurs.
+                        # Des messages pour signaler au joueur comment écrire une bonne
+                        # coordonnée, elles couvrent toutes les types d'erreurs.
                     else:
                         print("Veuillez entrez une lettre de A à J pour tirer dans la grille. ⚠️")
                 else:
@@ -258,7 +257,7 @@ def demande_coordonnee(joueur):
         else:
             print("Écrivez un lettre de A à J, une virgule et et un chiffre de 1 à 10. ⚠️")
 
-    # Affichez les grilles de tirs pour que les joueurs comprennent où ils ont tirés.
+    # Des Affichages des grilles_tirs pour que les deux joueurs puisent voir leurs tirs.
     if joueur == "Joueur1":
         afficher_grille_tirs_j1()
     elif joueur == "Joueur2":
@@ -271,15 +270,16 @@ import sys
 
 # J'ai appris les ANSI Escape Codes dans ce lien. Je l'ai enlevé des fichiers :
 # https://vascosim.medium.com/how-to-print-colored-text-in-python-52f6244e2e30
-
 # Une fonction qui sert litéralement à juste afficher un dessin text.
+
 ecran_accueil = [
     ["I=======I JEU BATTLESHIP  I=======I"],
     ["                                   "],
     ["            -+- //   //            "],
     ["_____ ---=/I-I---I---I---I-I\\=--- "],
     ["\\_°____________________________---/"],
-    ["\033[34m~ ~~ ~~~ ~~~~ ----- ------ ------- \033[0m"],
+    ["\033[34m~ ~~ ~~~ ~~~~ ----- ------ --------"],
+    ["Par:Vann Sovannthanant,Lamarana Sow\033[00m"],
 ]
 def affichage_ecran_accueil():
     for ligne in ecran_accueil:
@@ -287,8 +287,8 @@ def affichage_ecran_accueil():
 
 # J'ai appris à faire des textes clignotants en consultant ce site, j'ai modifié les params :
 # https://handhikayp.medium.com/generate-a-blinking-text-with-very-simple-python-4c10750978f5
-
 # Fonction qui permet d'afficher des textes clignotant pendant des secondes.
+
 def texte_clignotant(texte,secondes):
     compteur = 0
     while compteur <= secondes:
